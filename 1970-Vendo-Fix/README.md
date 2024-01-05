@@ -4,6 +4,9 @@
 
 ## 1.) Add your vendo to the address list
 
+Read more on 
+**[Using Address List for Vendos](./../Address-List-Vendo/README.md)**
+
 >   **Do this for all of your vendo**
 > - Name: JuanfiVendo
 > - Address: < vendo ip address >

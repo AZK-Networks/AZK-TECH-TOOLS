@@ -17,4 +17,5 @@ Github: github.com/AZK-Networks
 
 - **[JuanFi System](https://github.com/ivanalayan15/JuanFi)**
   - **[Sales Reset Update](./Juanfi-Sales-Reset/README.md)**
+  - **[Using Address List for Vendos](./Address-List-Vendo/README.md)**
   - **[1970 Time Fix for Vendos](./1970-Vendo-Fix/README.md)**
