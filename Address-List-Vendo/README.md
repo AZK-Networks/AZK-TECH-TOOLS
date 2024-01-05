@@ -25,17 +25,6 @@
   <img src="./2.png" />
 </p>
 
-
-## 2.) Adding the Walled Garden IP
-
-> - Action: **accept**
-> - Dst. Address List: **JuanfiVendo**
-
-<p align="center">
-  <img src="./3.png" />
-</p>
-
-
 ## 2.) Paste this script in the Terminal
 
 ### Walled Garden IP
