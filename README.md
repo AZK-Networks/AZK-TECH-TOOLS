@@ -19,3 +19,4 @@ Github: github.com/AZK-Networks
   - **[Sales Reset Update](./Juanfi-Sales-Reset/README.md)**
   - **[Using Address List for Vendos](./Address-List-Vendo/README.md)**
   - **[1970 Time Fix for Vendos](./1970-Vendo-Fix/README.md)**
+  - **[Scheduled Rates For Vendos](./Scheduled-Vendo-Rates/README.md)**
