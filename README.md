@@ -20,3 +20,4 @@ Github: github.com/AZK-Networks
   - **[Using Address List for Vendos](./Address-List-Vendo/README.md)**
   - **[1970 Time Fix for Vendos](./1970-Vendo-Fix/README.md)**
   - **[Scheduled Rates For Vendos](./Scheduled-Vendo-Rates/README.md)**
+  - **[Auto Bind Vendo Script](./Auto-Bind-Vendo-Script/README.md)**
