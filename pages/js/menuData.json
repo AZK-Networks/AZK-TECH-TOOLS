@@ -1,0 +1,22 @@
+{
+    "menuItems": [
+        {
+            "type": "link",
+            "text": "HOME PAGE",
+            "href": "/pages/"
+        },
+        {
+            "type": "divider",
+            "text": "Mikrotik Tools"
+        },
+        {
+            "type": "divider",
+            "text": "Juanfi Tools"
+        },
+        {
+            "type": "link",
+            "text": "JuanFi Rates Changer Scheduler",
+            "href": "/pages/scheduled-rate-changer/"
+        }
+    ]
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"
+    data-theme="dracula">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+    <title>AZK Tools - View Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"
+        rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+    <script defer
+        src="/pages/js/menu.js"></script>
+</head>
+
+<body>
+    <div class="drawer">
+        <input id="my-drawer-3"
+            type="checkbox"
+            class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <div class="w-full navbar bg-base-300">
+                <div class="flex-none">
+                    <label for="my-drawer-3"
+                        aria-label="open sidebar"
+                        class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <div class="px-2 mx-2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-rocket-takeoff"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                        <path
+                            d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                        <path
+                            d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+                    </svg>
+                </div>
+                <a href="/pages/"
+                    class="flex-1 px-2 mx-2 fw-bold">
+                    AZK TECH TOOLS
+                </a>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal">
+                        <li><a href="https://www.facebook.com/azk.manager"
+                                target="_blank"
+                                class="text-secondary">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hero bg-base-100 my-4">
+                <div class="hero-content">
+                    <h1 class="text-5xl font-bold">JuanFi Rates Changer Scheduler</h1>
+                </div>
+            </div>
+
+            <div class="container mx-auto">
+                <div class="my-4">
+                    <div role="alert"
+                        class="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="stroke-current shrink-0 w-6 h-6">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>
+                            <span class="text-warning">We are not liable to any damage caused by our tools, use with
+                                cautions</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="card card-compact bg-base-300 shadow-xl my-4">
+                    <div class="card-body">
+                        <form onsubmit="return false"
+                            class="grid grid-cols-1 lg:grid-cols-2 my-4 gap-4">
+                            <div>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Vendo IP Address</span>
+                                    </div>
+                                    <input type="text"
+                                        required
+                                        id="vendo-ip"
+                                        placeholder="0.0.0.0"
+                                        pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+                                        class="input input-bordered w-full" />
+                                </label>
+
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Vendo API Key</span>
+                                    </div>
+                                    <input type="text"
+                                        required
+                                        id="vendo-api"
+                                        placeholder="API KEY"
+                                        class="input input-bordered w-full" />
+                                </label>
+                            </div>
+                            <div>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Select Rates Data</span>
+                                        <span class="label-text-alt">rates.data</span>
+                                    </div>
+                                    <input type="file"
+                                        accept=".data"
+                                        required
+                                        id="dataRates"
+                                        class="file-input file-input-bordered w-full" />
+                                </label>
+                                <label class="form-control w-full">
+                                    <button class="btn btn-success btn-block mt-9">Generate</button>
+                                </label>
+                            </div>
+                        </form>
+                        <textarea class="textarea textarea-bordered"
+                            placeholder="Output"
+                            rows="8"
+                            readonly
+                            id="output"></textarea>
+                    </div>
+                </div>
+                <div class="collapse collapse-arrow rounded-box bg-base-300">
+                    <input type="checkbox">
+                    <div class="collapse-title text-xl font-medium">How to use it
+                    </div>
+                    <div class="collapse-content">
+                        <ul class="list-disc ml-5">
+                            <ul class="steps steps-vertical">
+                                <li class="step step-primary">Create a scheduler
+                                </li>
+                                <li class="step step-primary">Paste the script inside the scheduler script
+                                </li>
+                                <li class="step step-primary">Set the time (24 hour format) and 24hr intervals</li>
+                                <li class="step step-primary">Done</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                <script>
+                    var _0x403789 = _0x1911; function _0x1911(_0x405c66, _0x36cf84) { var _0xda44cf = _0xda44(); return _0x1911 = function (_0x19112d, _0xd39c5b) { _0x19112d = _0x19112d - 0x1bd; var _0x398385 = _0xda44cf[_0x19112d]; return _0x398385; }, _0x1911(_0x405c66, _0x36cf84); } function _0xda44() { var _0x59095b = ['button', 'result', '161228ldTlUh', '7fxpjBu', 'readAsText', '267NPFrQW', '10oJhUHE', '#output', 'click', '43087HAKVBH', '234eCAUXz', '195792pUurmJ', '%2F', '/admin/api/saveRates?rateType=1&data=', 'files', '#vendo-ip', '2034174VCrwaw', 'replace', '2578obrHLX', 'val', 'onload', '/tool\x20fetch\x20http-method=post\x20http-header-field=\x22X-TOKEN:\x20', '100nxYUsx', '9vUAIjO', '\x22\x20url=\x22http://', 'ready', '665048BYBJLP', '199424szysEo', 'text']; _0xda44 = function () { return _0x59095b; }; return _0xda44(); } (function (_0x48bed0, _0x1e488c) { var _0x85a6d6 = _0x1911, _0x24bebe = _0x48bed0(); while (!![]) { try { var _0x52f68d = parseInt(_0x85a6d6(0x1c9)) / 0x1 + parseInt(_0x85a6d6(0x1d9)) / 0x2 * (parseInt(_0x85a6d6(0x1cc)) / 0x3) + parseInt(_0x85a6d6(0x1c5)) / 0x4 * (-parseInt(_0x85a6d6(0x1cd)) / 0x5) + parseInt(_0x85a6d6(0x1d7)) / 0x6 * (-parseInt(_0x85a6d6(0x1ca)) / 0x7) + parseInt(_0x85a6d6(0x1c4)) / 0x8 * (parseInt(_0x85a6d6(0x1c1)) / 0x9) + parseInt(_0x85a6d6(0x1c0)) / 0xa * (-parseInt(_0x85a6d6(0x1d0)) / 0xb) + -parseInt(_0x85a6d6(0x1d2)) / 0xc * (-parseInt(_0x85a6d6(0x1d1)) / 0xd); if (_0x52f68d === _0x1e488c) break; else _0x24bebe['push'](_0x24bebe['shift']()); } catch (_0x465f9f) { _0x24bebe['push'](_0x24bebe['shift']()); } } }(_0xda44, 0x2ab09), $(document)[_0x403789(0x1c3)](function () { var _0x409c63 = _0x403789; $(_0x409c63(0x1c7))[_0x409c63(0x1cf)](function () { var _0x209bb = _0x409c63, _0x293576 = $('#dataRates')[0x0][_0x209bb(0x1d5)][0x0], _0x1edc6b = new FileReader(); _0x1edc6b[_0x209bb(0x1cb)](_0x293576), _0x1edc6b[_0x209bb(0x1be)] = function () { var _0x2549b7 = _0x209bb, _0x25b1d6 = _0x1edc6b[_0x2549b7(0x1c8)], _0x36660f = _0x25b1d6[_0x2549b7(0x1d8)](/\s/g, '+')['replace'](/\//g, _0x2549b7(0x1d3))[_0x2549b7(0x1d8)](/\|/g, '%7C'), _0x167eff = $(_0x2549b7(0x1d6))[_0x2549b7(0x1bd)](), _0x3c3fb6 = $('#vendo-api')[_0x2549b7(0x1bd)](), _0x443be3 = _0x2549b7(0x1bf) + _0x3c3fb6 + _0x2549b7(0x1c2) + _0x167eff + _0x2549b7(0x1d4) + _0x36660f + '\x22;'; $(_0x2549b7(0x1ce))[_0x2549b7(0x1c6)](_0x443be3); }; }); }));
+                </script>
+            </div>
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-3"
+                aria-label="close sidebar"
+                class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-200"
+                id="menu"></ul>
+        </div>
+    </div>
+
+    <footer class="footer p-10 bg-base-200 text-base-content mt-6 bottom-0 w-full">
+        <aside>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="70"
+                height="70"
+                fill="currentColor"
+                class="bi bi-rocket-takeoff"
+                viewBox="0 0 16 16">
+                <path
+                    d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                <path
+                    d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                <path
+                    d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+            </svg>
+            <p>AZK TECH SUPPORT<br>Providing reliable tech support since 2023</p>
+        </aside>
+        <nav>
+            <h6 class="footer-title">Services</h6>
+            <a class="link link-hover">Configuration</a>
+            <a class="link link-hover">Support</a>
+            <a class="link link-hover">Remote VPN</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Company</h6>
+            <a href="/about-us"
+                class="link link-hover">About us</a>
+            <a href="http://m.me/azk.manager"
+                class="link link-hover">Contact</a>
+            <a href="https://github.com/AZK-Networks"
+                class="link link-hover">Github</a>
+            <a href="https://www.facebook.com/azk.manager"
+                class="link link-hover">Facebook</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Legal</h6>
+            <a href="/terms-of-use"
+                class="link link-hover">Terms of use</a>
+        </nav>
+    </footer>
+</body>
+<!-- Google tag (gtag.js) -->
+<script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-F2DNZ40VNL"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F2DNZ40VNL');
+</script>
+
+</html>
