@@ -2,7 +2,7 @@
     "menuItems": [
         {
             "type": "link",
-            "text": "HOME PAGE",
+            "text": "All Tools",
             "href": "/pages/"
         },
         {

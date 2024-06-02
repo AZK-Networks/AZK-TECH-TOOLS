@@ -19,8 +19,8 @@
         src="/pages/js/menu.js"></script>
 </head>
 
-<body>
-    <div class="drawer">
+<body class="flex flex-col min-h-screen">
+    <div class="drawer flex-grow">
         <input id="my-drawer-3"
             type="checkbox"
             class="drawer-toggle" />
@@ -41,7 +41,8 @@
                         </svg>
                     </label>
                 </div>
-                <div class="px-2 mx-2 ">
+                <a href="/pages/"
+                    class="px-2 mx-2 ">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         width="30"
                         height="30"
@@ -55,7 +56,7 @@
                         <path
                             d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
                     </svg>
-                </div>
+                </a>
                 <a href="/pages/"
                     class="flex-1 px-2 mx-2 fw-bold">
                     AZK TECH TOOLS
@@ -75,7 +76,7 @@
             </div>
 
             <div class="container mx-auto">
-                <div class="my-4">
+                <div class="my-8 mx-4">
                     <div role="alert"
                         class="alert">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -88,80 +89,82 @@
                                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <span>
-                            <span class="text-warning">We are not liable to any damage caused by our tools, use with
-                                cautions</span>
+                            <span class="text-warning">We are not liable for any damage caused by the use of our
+                                tools;
+                                therefore, please use them with caution and care.</span>
                         </span>
                     </div>
-                </div>
-                <div class="card card-compact bg-base-300 shadow-xl my-4">
-                    <div class="card-body">
-                        <form onsubmit="return false"
-                            class="grid grid-cols-1 lg:grid-cols-2 my-4 gap-4">
-                            <div>
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span class="label-text">Vendo IP Address</span>
-                                    </div>
-                                    <input type="text"
-                                        required
-                                        id="vendo-ip"
-                                        placeholder="0.0.0.0"
-                                        pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
-                                        class="input input-bordered w-full" />
-                                </label>
+                    <div class="card card-compact bg-base-300 shadow-xl mt-4">
+                        <div class="card-body">
+                            <form onsubmit="return false"
+                                class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Vendo IP Address</span>
+                                        </div>
+                                        <input type="text"
+                                            required
+                                            id="vendo-ip"
+                                            placeholder="0.0.0.0"
+                                            pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+                                            class="input input-bordered w-full" />
+                                    </label>
 
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span class="label-text">Vendo API Key</span>
-                                    </div>
-                                    <input type="text"
-                                        required
-                                        id="vendo-api"
-                                        placeholder="API KEY"
-                                        class="input input-bordered w-full" />
-                                </label>
-                            </div>
-                            <div>
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span class="label-text">Select Rates Data</span>
-                                        <span class="label-text-alt">rates.data</span>
-                                    </div>
-                                    <input type="file"
-                                        accept=".data"
-                                        required
-                                        id="dataRates"
-                                        class="file-input file-input-bordered w-full" />
-                                </label>
-                                <label class="form-control w-full">
-                                    <button class="btn btn-success btn-block mt-9">Generate</button>
-                                </label>
-                            </div>
-                        </form>
-                        <textarea class="textarea textarea-bordered"
-                            placeholder="Output"
-                            rows="8"
-                            readonly
-                            id="output"></textarea>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Vendo API Key</span>
+                                        </div>
+                                        <input type="text"
+                                            required
+                                            id="vendo-api"
+                                            placeholder="API KEY"
+                                            class="input input-bordered w-full" />
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Select Rates Data</span>
+                                            <span class="label-text-alt">rates.data</span>
+                                        </div>
+                                        <input type="file"
+                                            accept=".data"
+                                            required
+                                            id="dataRates"
+                                            class="file-input file-input-bordered w-full" />
+                                    </label>
+                                    <label class="form-control w-full">
+                                        <button class="btn btn-success btn-block mt-9">Generate</button>
+                                    </label>
+                                </div>
+                            </form>
+                            <textarea class="textarea textarea-bordered mt-4"
+                                placeholder="Output"
+                                rows="8"
+                                readonly
+                                id="output"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="collapse collapse-arrow rounded-box bg-base-300">
-                    <input type="checkbox">
-                    <div class="collapse-title text-xl font-medium">How to use it
-                    </div>
-                    <div class="collapse-content">
-                        <ul class="list-disc ml-5">
-                            <ul class="steps steps-vertical">
-                                <li class="step step-primary">Create a scheduler
-                                </li>
-                                <li class="step step-primary">Paste the script inside the scheduler script
-                                </li>
-                                <li class="step step-primary">Set the time (24 hour format) and 24hr intervals</li>
-                                <li class="step step-primary">Done</li>
+                    <div class="collapse collapse-arrow rounded-box bg-base-300 mt-4">
+                        <input type="checkbox">
+                        <div class="collapse-title text-xl font-medium">How to use it
+                        </div>
+                        <div class="collapse-content">
+                            <ul class="list-disc ml-5">
+                                <ul class="steps steps-vertical">
+                                    <li class="step step-primary">Create a scheduler
+                                    </li>
+                                    <li class="step step-primary">Paste the script inside the scheduler script
+                                    </li>
+                                    <li class="step step-primary">Set the time (24 hour format) and 24hr intervals</li>
+                                    <li class="step step-primary">Done</li>
+                                </ul>
                             </ul>
-                        </ul>
+                        </div>
                     </div>
                 </div>
+
                 <script>
                     var _0x403789 = _0x1911; function _0x1911(_0x405c66, _0x36cf84) { var _0xda44cf = _0xda44(); return _0x1911 = function (_0x19112d, _0xd39c5b) { _0x19112d = _0x19112d - 0x1bd; var _0x398385 = _0xda44cf[_0x19112d]; return _0x398385; }, _0x1911(_0x405c66, _0x36cf84); } function _0xda44() { var _0x59095b = ['button', 'result', '161228ldTlUh', '7fxpjBu', 'readAsText', '267NPFrQW', '10oJhUHE', '#output', 'click', '43087HAKVBH', '234eCAUXz', '195792pUurmJ', '%2F', '/admin/api/saveRates?rateType=1&data=', 'files', '#vendo-ip', '2034174VCrwaw', 'replace', '2578obrHLX', 'val', 'onload', '/tool\x20fetch\x20http-method=post\x20http-header-field=\x22X-TOKEN:\x20', '100nxYUsx', '9vUAIjO', '\x22\x20url=\x22http://', 'ready', '665048BYBJLP', '199424szysEo', 'text']; _0xda44 = function () { return _0x59095b; }; return _0xda44(); } (function (_0x48bed0, _0x1e488c) { var _0x85a6d6 = _0x1911, _0x24bebe = _0x48bed0(); while (!![]) { try { var _0x52f68d = parseInt(_0x85a6d6(0x1c9)) / 0x1 + parseInt(_0x85a6d6(0x1d9)) / 0x2 * (parseInt(_0x85a6d6(0x1cc)) / 0x3) + parseInt(_0x85a6d6(0x1c5)) / 0x4 * (-parseInt(_0x85a6d6(0x1cd)) / 0x5) + parseInt(_0x85a6d6(0x1d7)) / 0x6 * (-parseInt(_0x85a6d6(0x1ca)) / 0x7) + parseInt(_0x85a6d6(0x1c4)) / 0x8 * (parseInt(_0x85a6d6(0x1c1)) / 0x9) + parseInt(_0x85a6d6(0x1c0)) / 0xa * (-parseInt(_0x85a6d6(0x1d0)) / 0xb) + -parseInt(_0x85a6d6(0x1d2)) / 0xc * (-parseInt(_0x85a6d6(0x1d1)) / 0xd); if (_0x52f68d === _0x1e488c) break; else _0x24bebe['push'](_0x24bebe['shift']()); } catch (_0x465f9f) { _0x24bebe['push'](_0x24bebe['shift']()); } } }(_0xda44, 0x2ab09), $(document)[_0x403789(0x1c3)](function () { var _0x409c63 = _0x403789; $(_0x409c63(0x1c7))[_0x409c63(0x1cf)](function () { var _0x209bb = _0x409c63, _0x293576 = $('#dataRates')[0x0][_0x209bb(0x1d5)][0x0], _0x1edc6b = new FileReader(); _0x1edc6b[_0x209bb(0x1cb)](_0x293576), _0x1edc6b[_0x209bb(0x1be)] = function () { var _0x2549b7 = _0x209bb, _0x25b1d6 = _0x1edc6b[_0x2549b7(0x1c8)], _0x36660f = _0x25b1d6[_0x2549b7(0x1d8)](/\s/g, '+')['replace'](/\//g, _0x2549b7(0x1d3))[_0x2549b7(0x1d8)](/\|/g, '%7C'), _0x167eff = $(_0x2549b7(0x1d6))[_0x2549b7(0x1bd)](), _0x3c3fb6 = $('#vendo-api')[_0x2549b7(0x1bd)](), _0x443be3 = _0x2549b7(0x1bf) + _0x3c3fb6 + _0x2549b7(0x1c2) + _0x167eff + _0x2549b7(0x1d4) + _0x36660f + '\x22;'; $(_0x2549b7(0x1ce))[_0x2549b7(0x1c6)](_0x443be3); }; }); }));
                 </script>
@@ -176,7 +179,7 @@
         </div>
     </div>
 
-    <footer class="footer p-10 bg-base-200 text-base-content mt-6 bottom-0 w-full">
+    <footer class="footer p-10 bg-base-200 text-base-content  mt-auto relative w-full">
         <aside>
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="70"
@@ -217,6 +220,14 @@
         </nav>
     </footer>
 </body>
+<script disable-devtool-auto
+    src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'
+    md5='2e8907eeb4a32d652a35030696595fea'
+    tkName="secret"
+    url='/error.html'
+    disable-menu='true'
+    disableSelect='true'
+    clear-log='true'></script>
 <!-- Google tag (gtag.js) -->
 <script async
     src="https://www.googletagmanager.com/gtag/js?id=G-F2DNZ40VNL"></script>
