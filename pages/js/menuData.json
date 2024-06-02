@@ -17,6 +17,15 @@
             "type": "link",
             "text": "JuanFi Rates Changer Scheduler",
             "href": "/pages/scheduled-rate-changer/"
+        },
+        {
+            "type": "divider",
+            "text": "Network Tools"
+        },
+        {
+            "type": "link",
+            "text": "IPv4 Subnet Calculator",
+            "href": "/pages/subnet-calculator/"
         }
     ]
 }

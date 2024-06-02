@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en"
+    data-theme="dracula">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+    <title>AZK Tools - View Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"
+        rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+    <script defer
+        src="/pages/js/menu.js"></script>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <div class="drawer flex-grow">
+        <input id="my-drawer-3"
+            type="checkbox"
+            class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <div class="w-full navbar bg-base-300">
+                <div class="flex-none">
+                    <label for="my-drawer-3"
+                        aria-label="open sidebar"
+                        class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <a href="/pages/"
+                    class="px-2 mx-2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-rocket-takeoff"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                        <path
+                            d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                        <path
+                            d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+                    </svg>
+                </a>
+                <a href="/pages/"
+                    class="flex-1 px-2 mx-2 fw-bold">
+                    AZK TECH TOOLS
+                </a>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal">
+                        <li><a href="https://www.facebook.com/azk.manager"
+                                target="_blank"
+                                class="text-secondary">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hero bg-base-100 my-4">
+                <div class="hero-content">
+                    <h1 class="text-5xl font-bold">IPv4 Subnet Calculator</h1>
+                </div>
+            </div>
+
+            <div class="container mx-auto">
+                <div class="my-4 mx-4">
+                    <div class="card card-compact bg-base-300 shadow-xl">
+                        <div class="card-body">
+                            <form id="subnetForm"
+                                class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">IP Address</span>
+                                        </div>
+                                        <input type="text"
+                                            required
+                                            id="address"
+                                            placeholder="0.0.0.0"
+                                            pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+                                            class="input input-bordered w-full" />
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Subnet</span>
+                                        </div>
+                                        <select class="select w-full"
+                                            id="subnet"
+                                            onchange="return setSubnetV(this.value);">
+                                            <option value="32">255.255.255.255 /32</option>
+                                            <option value="31">255.255.255.254 /31</option>
+                                            <option value="30">255.255.255.252 /30</option>
+                                            <option value="29">255.255.255.248 /29</option>
+                                            <option value="28">255.255.255.240 /28</option>
+                                            <option value="27">255.255.255.224 /27</option>
+                                            <option value="26">255.255.255.192 /26</option>
+                                            <option value="25">255.255.255.128 /25</option>
+                                            <option value="24"
+                                                selected>255.255.255.0 /24</option>
+                                            <option value="23">255.255.254.0 /23</option>
+                                            <option value="22">255.255.252.0 /22</option>
+                                            <option value="21">255.255.248.0 /21</option>
+                                            <option value="20">255.255.240.0 /20</option>
+                                            <option value="19">255.255.224.0 /19</option>
+                                            <option value="18">255.255.192.0 /18</option>
+                                            <option value="17">255.255.128.0 /17</option>
+                                            <option value="16">255.255.0.0 /16</option>
+                                            <option value="15">255.254.0.0 /15</option>
+                                            <option value="14">255.252.0.0 /14</option>
+                                            <option value="13">255.248.0.0 /13</option>
+                                            <option value="12">255.240.0.0 /12</option>
+                                            <option value="11">255.224.0.0 /11</option>
+                                            <option value="10">255.192.0.0 /10</option>
+                                            <option value="9">255.128.0.0 /9</option>
+                                            <option value="8">255.0.0.0 /8</option>
+                                            <option value="7">254.0.0.0 /7</option>
+                                            <option value="6">252.0.0.0 /6</option>
+                                            <option value="5">248.0.0.0 /5</option>
+                                            <option value="4">240.0.0.0 /4</option>
+                                            <option value="3">224.0.0.0 /3</option>
+                                            <option value="2">192.0.0.0 /2</option>
+                                            <option value="1">128.0.0.0 /1</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-control w-full">
+                                        <button class="btn btn-success btn-block"
+                                            type="submit"
+                                            id="calculateBtn">Calculate</button>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="form-control w-full">
+                                        <button class="btn btn-error btn-block"
+                                            type="reset"
+                                            id="clearBtn">Clear</button>
+                                    </label>
+                                </div>
+                            </form>
+
+                            <div class="overflow-x-auto mt-4">
+                                <table class="table"
+                                    id="resultTable">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse collapse-arrow rounded-box bg-base-300 mt-4">
+                        <input type="checkbox">
+                        <div class="collapse-title text-xl font-medium">Subnets for IPv4
+                        </div>
+                        <div class="collapse-content">
+                            <div class="overflow-x-auto">
+                                <table class="table table-xs text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Prefix size</th>
+                                            <th>Network mask</th>
+                                            <th>Usable hosts per subnet</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="hover">
+                                            <td>/1</td>
+                                            <td>128.0.0.0</td>
+                                            <td align="right">2,147,483,646</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/2</td>
+                                            <td>192.0.0.0</td>
+                                            <td align="right">1,073,741,822</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/3</td>
+                                            <td>224.0.0.0</td>
+                                            <td align="right">536,870,910</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/4</td>
+                                            <td>240.0.0.0</td>
+                                            <td align="right">268,435,454</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/5</td>
+                                            <td>248.0.0.0</td>
+                                            <td align="right">134,217,726</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/6</td>
+                                            <td>252.0.0.0</td>
+                                            <td align="right">67,108,862</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/7</td>
+                                            <td>254.0.0.0</td>
+                                            <td align="right">33,554,430</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td colspan="3"
+                                                align="center"><b>Class A</b></td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/8</td>
+                                            <td>255.0.0.0</td>
+                                            <td align="right">16,777,214</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/9</td>
+                                            <td>255.128.0.0</td>
+                                            <td align="right">8,388,606</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/10</td>
+                                            <td>255.192.0.0</td>
+                                            <td align="right">4,194,302</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/11</td>
+                                            <td>255.224.0.0</td>
+                                            <td align="right">2,097,150</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/12</td>
+                                            <td>255.240.0.0</td>
+                                            <td align="right">1,048,574</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/13</td>
+                                            <td>255.248.0.0</td>
+                                            <td align="right">524,286</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/14</td>
+                                            <td>255.252.0.0</td>
+                                            <td align="right">262,142</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/15</td>
+                                            <td>255.254.0.0</td>
+                                            <td align="right">131,070</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td colspan="3"
+                                                align="center"><b>Class B</b></td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/16</td>
+                                            <td>255.255.0.0</td>
+                                            <td align="right">65,534</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/17</td>
+                                            <td>255.255.128.0</td>
+                                            <td align="right">32,766</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/18</td>
+                                            <td>255.255.192.0</td>
+                                            <td align="right">16,382</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/19</td>
+                                            <td>255.255.224.0</td>
+                                            <td align="right">8,190</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/20</td>
+                                            <td>255.255.240.0</td>
+                                            <td align="right">4,094</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/21</td>
+                                            <td>255.255.248.0</td>
+                                            <td align="right">2,046</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/22</td>
+                                            <td>255.255.252.0</td>
+                                            <td align="right">1,022</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/23</td>
+                                            <td>255.255.254.0</td>
+                                            <td align="right">510</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td colspan="3"
+                                                align="center"><b>Class C</b></td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/24</td>
+                                            <td>255.255.255.0</td>
+                                            <td align="right">254</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/25</td>
+                                            <td>255.255.255.128</td>
+                                            <td align="right">126</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/26</td>
+                                            <td>255.255.255.192</td>
+                                            <td align="right">62</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/27</td>
+                                            <td>255.255.255.224</td>
+                                            <td align="right">30</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/28</td>
+                                            <td>255.255.255.240</td>
+                                            <td align="right">14</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/29</td>
+                                            <td>255.255.255.248</td>
+                                            <td align="right">6</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/30</td>
+                                            <td>255.255.255.252</td>
+                                            <td align="right">2</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/31</td>
+                                            <td>255.255.255.254</td>
+                                            <td align="right">0</td>
+                                        </tr>
+                                        <tr class="hover">
+                                            <td>/32</td>
+                                            <td>255.255.255.255</td>
+                                            <td align="right">0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    const _0x16a92d = _0x5619; (function (_0x448a5d, _0x34d8c0) { const _0x174fdd = _0x5619, _0x3aa93f = _0x448a5d(); while (!![]) { try { const _0x1f4940 = parseInt(_0x174fdd(0xc3)) / 0x1 * (parseInt(_0x174fdd(0xcd)) / 0x2) + parseInt(_0x174fdd(0x9a)) / 0x3 * (-parseInt(_0x174fdd(0x99)) / 0x4) + parseInt(_0x174fdd(0xab)) / 0x5 + parseInt(_0x174fdd(0xad)) / 0x6 * (-parseInt(_0x174fdd(0xbe)) / 0x7) + -parseInt(_0x174fdd(0x97)) / 0x8 + parseInt(_0x174fdd(0xaf)) / 0x9 + parseInt(_0x174fdd(0xb1)) / 0xa * (parseInt(_0x174fdd(0xbc)) / 0xb); if (_0x1f4940 === _0x34d8c0) break; else _0x3aa93f['push'](_0x3aa93f['shift']()); } catch (_0x14e26e) { _0x3aa93f['push'](_0x3aa93f['shift']()); } } }(_0x10e0, 0x8ad3a)); const _0x5da819 = (function () { let _0x1e24b0 = !![]; return function (_0x23d932, _0x234ec0) { const _0x134fa9 = _0x1e24b0 ? function () { const _0x46a4d2 = _0x5619; if (_0x234ec0) { const _0x38e9e8 = _0x234ec0[_0x46a4d2(0xc5)](_0x23d932, arguments); return _0x234ec0 = null, _0x38e9e8; } } : function () { }; return _0x1e24b0 = ![], _0x134fa9; }; }()), _0x2d0bbb = _0x5da819(this, function () { const _0x124be4 = _0x5619; return _0x2d0bbb['toString']()['search'](_0x124be4(0xb8))[_0x124be4(0xa0)]()[_0x124be4(0xc8)](_0x2d0bbb)[_0x124be4(0xbf)](_0x124be4(0xb8)); }); _0x2d0bbb(); const _0x1edf78 = (function () { let _0x2826f6 = !![]; return function (_0x4d2cea, _0x445ab0) { const _0x2f043b = _0x2826f6 ? function () { const _0x3eab97 = _0x5619; if (_0x445ab0) { const _0x4a74c7 = _0x445ab0[_0x3eab97(0xc5)](_0x4d2cea, arguments); return _0x445ab0 = null, _0x4a74c7; } } : function () { }; return _0x2826f6 = ![], _0x2f043b; }; }()), _0x371c40 = _0x1edf78(this, function () { const _0x6e5204 = _0x5619, _0x575bca = function () { const _0x1628c2 = _0x5619; let _0x261b35; try { _0x261b35 = Function(_0x1628c2(0xc0) + _0x1628c2(0xc6) + ');')(); } catch (_0x1054a0) { _0x261b35 = window; } return _0x261b35; }, _0x214e8a = _0x575bca(), _0x238d6f = _0x214e8a[_0x6e5204(0xa6)] = _0x214e8a[_0x6e5204(0xa6)] || {}, _0x7fbbe9 = ['log', 'warn', _0x6e5204(0xa3), _0x6e5204(0xc4), _0x6e5204(0xa9), _0x6e5204(0xcc), 'trace']; for (let _0x4592f6 = 0x0; _0x4592f6 < _0x7fbbe9[_0x6e5204(0x9c)]; _0x4592f6++) { const _0x2e56ec = _0x1edf78[_0x6e5204(0xc8)][_0x6e5204(0xa2)][_0x6e5204(0x9f)](_0x1edf78), _0x3ad12d = _0x7fbbe9[_0x4592f6], _0x403ded = _0x238d6f[_0x3ad12d] || _0x2e56ec; _0x2e56ec[_0x6e5204(0xb4)] = _0x1edf78[_0x6e5204(0x9f)](_0x1edf78), _0x2e56ec[_0x6e5204(0xa0)] = _0x403ded[_0x6e5204(0xa0)][_0x6e5204(0x9f)](_0x403ded), _0x238d6f[_0x3ad12d] = _0x2e56ec; } }); _0x371c40(), $(document)[_0x16a92d(0xa4)](function () { const _0x5335c4 = _0x16a92d; $('#calculateBtn')[_0x5335c4(0xb9)](function () { event['preventDefault'](), calculateSubnet(); }), $(_0x5335c4(0xbb))['click'](function (_0xedb709) { const _0x298631 = _0x5335c4; _0xedb709[_0x298631(0x9d)](), clearResults(); }); }); function calculateSubnet() { const _0x5a09af = _0x16a92d, _0xfe9e31 = $('#address')[_0x5a09af(0x98)](), _0x1da228 = $(_0x5a09af(0xac))['val'](); if (!validateIp(_0xfe9e31)) { alert(_0x5a09af(0xb6)); return; } const _0x2bc4af = cidrToBinary(_0x1da228), _0x1fb9d0 = ipToBinary(_0xfe9e31), _0x207c61 = calculateNetworkAddress(_0x1fb9d0, _0x2bc4af), _0x49c823 = calculateBroadcastAddress(_0x1fb9d0, _0x2bc4af), _0x2568ed = calculateNumberOfHosts(_0x2bc4af), _0x35792a = calculateUsableHostRange(_0x207c61, _0x49c823), _0x291cc9 = { 'IP\x20Address': _0xfe9e31, 'Network\x20Address': binaryToIp(_0x207c61), 'Usable\x20Host\x20IP\x20Range': _0x35792a, 'Broadcast\x20Address': binaryToIp(_0x49c823), 'Total\x20Number\x20of\x20Hosts': _0x2568ed['total'], 'Number\x20of\x20Usable\x20Hosts': _0x2568ed[_0x5a09af(0xb7)], 'Subnet\x20Mask': binaryToIp(_0x2bc4af), 'Wildcard\x20Mask': binaryToWildcard(_0x2bc4af), 'Binary\x20Subnet\x20Mask': _0x2bc4af['match'](/.{1,8}/g)['join']('.'), 'IP\x20Class': getIpClass(_0xfe9e31), 'CIDR\x20Notation': '/' + _0x1da228, 'IP\x20Type': getIpType(_0xfe9e31), 'Short': _0xfe9e31 + '/' + _0x1da228, 'Binary\x20ID': _0x1fb9d0, 'Integer\x20ID': binaryToDecimal(_0x1fb9d0), 'Hex\x20ID': binaryToHex(_0x1fb9d0), 'in-addr.arpa': _0xfe9e31[_0x5a09af(0xc7)]('.')[_0x5a09af(0xba)]()[_0x5a09af(0x9e)]('.') + _0x5a09af(0xa5), 'IPv4\x20Mapped\x20Address': _0x5a09af(0xcb) + _0xfe9e31[_0x5a09af(0xc7)]('.')[_0x5a09af(0xbd)](_0x393686 => parseInt(_0x393686)['toString'](0x10)['padStart'](0x2, '0'))[_0x5a09af(0x9e)](':'), '6to4\x20Prefix': '2002:' + _0xfe9e31[_0x5a09af(0xc7)]('.')[_0x5a09af(0xbd)](_0x27b6a3 => parseInt(_0x27b6a3)[_0x5a09af(0xa0)](0x10)['padStart'](0x2, '0'))[_0x5a09af(0x9e)](':') + _0x5a09af(0xc1) }; displayResults(_0x291cc9); } function validateIp(_0x898849) { const _0x377390 = _0x16a92d, _0x4492f6 = _0x898849[_0x377390(0xc7)]('.'); return _0x4492f6['length'] === 0x4 && _0x4492f6[_0x377390(0xc2)](_0x47fa80 => parseInt(_0x47fa80) >= 0x0 && parseInt(_0x47fa80) <= 0xff); } function ipToBinary(_0x4f9d13) { const _0x171edd = _0x16a92d; return _0x4f9d13[_0x171edd(0xc7)]('.')[_0x171edd(0xbd)](_0x14e386 => parseInt(_0x14e386)[_0x171edd(0xa0)](0x2)['padStart'](0x8, '0'))['join'](''); } function binaryToIp(_0x422534) { const _0x4dee41 = _0x16a92d; return _0x422534['match'](/.{1,8}/g)[_0x4dee41(0xbd)](_0x227f3e => parseInt(_0x227f3e, 0x2))[_0x4dee41(0x9e)]('.'); } function cidrToBinary(_0x4633ff) { const _0x4e9b88 = _0x16a92d; return '1'[_0x4e9b88(0xc9)](parseInt(_0x4633ff))[_0x4e9b88(0xb2)](0x20, '0'); } function calculateNetworkAddress(_0x49bc75, _0x5a1e60) { const _0x3c24f8 = _0x16a92d; return _0x49bc75[_0x3c24f8(0xc7)]('')[_0x3c24f8(0xbd)]((_0x55dc6f, _0x463112) => _0x55dc6f & _0x5a1e60[_0x463112])[_0x3c24f8(0x9e)](''); } function _0x5619(_0x28da9a, _0xaaadcf) { const _0x3600e1 = _0x10e0(); return _0x5619 = function (_0x371c40, _0x1edf78) { _0x371c40 = _0x371c40 - 0x97; let _0x46193d = _0x3600e1[_0x371c40]; return _0x46193d; }, _0x5619(_0x28da9a, _0xaaadcf); } function calculateBroadcastAddress(_0x58db7d, _0xf1c8c5) { const _0x59cb44 = _0x16a92d, _0x4d94d5 = _0xf1c8c5[_0x59cb44(0xc7)]('')[_0x59cb44(0xbd)](_0x59b525 => _0x59b525 === '1' ? '0' : '1')[_0x59cb44(0x9e)](''); return _0x58db7d['split']('')[_0x59cb44(0xbd)]((_0x3d74a2, _0x44270c) => _0x3d74a2 | _0x4d94d5[_0x44270c])[_0x59cb44(0x9e)](''); } function calculateNumberOfHosts(_0x3a9ce6) { const _0x2fd5a4 = _0x16a92d, _0x570bd2 = _0x3a9ce6['split']('')['filter'](_0x43e1d5 => _0x43e1d5 === '0')[_0x2fd5a4(0x9c)], _0x36ac2 = Math[_0x2fd5a4(0xa7)](0x2, _0x570bd2); return { 'total': _0x36ac2, 'usable': _0x36ac2 - 0x2 }; } function calculateUsableHostRange(_0x263af1, _0x1734ec) { const _0x5b7651 = _0x16a92d, _0x4c3d44 = (parseInt(_0x263af1, 0x2) + 0x1)[_0x5b7651(0xa0)](0x2)[_0x5b7651(0xb5)](0x20, '0'), _0x2d6c70 = (parseInt(_0x1734ec, 0x2) - 0x1)[_0x5b7651(0xa0)](0x2)[_0x5b7651(0xb5)](0x20, '0'); return binaryToIp(_0x4c3d44) + '\x20-\x20' + binaryToIp(_0x2d6c70); } function binaryToWildcard(_0x3f590d) { const _0x10976e = _0x16a92d; return _0x3f590d[_0x10976e(0xc7)]('')['map'](_0x590deb => _0x590deb === '1' ? '0' : '1')[_0x10976e(0x9e)](''); } function getIpClass(_0x448fb9) { const _0x4e7eab = parseInt(_0x448fb9['split']('.')[0x0]); if (_0x4e7eab >= 0x1 && _0x4e7eab <= 0x7e) return 'A'; if (_0x4e7eab >= 0x80 && _0x4e7eab <= 0xbf) return 'B'; if (_0x4e7eab >= 0xc0 && _0x4e7eab <= 0xdf) return 'C'; if (_0x4e7eab >= 0xe0 && _0x4e7eab <= 0xef) return 'D'; if (_0x4e7eab >= 0xf0 && _0x4e7eab <= 0xff) return 'E'; return 'Unknown'; } function _0x10e0() { const _0x3bc7d6 = ['<td>', '8197496inqsRt', 'val', '4HUQKwK', '465249uctnFa', 'toUpperCase', 'length', 'preventDefault', 'join', 'bind', 'toString', 'Public', 'prototype', 'info', 'ready', '.in-addr.arpa', 'console', 'pow', 'empty', 'exception', 'entries', '1418155ReSboh', '#subnet', '52188wnQMXJ', 'append', '1623816Siujmr', 'text', '230wnMcyk', 'padEnd', '#resultTable\x20tbody', '__proto__', 'padStart', 'Invalid\x20IP\x20address.', 'usable', '(((.+)+)+)+$', 'click', 'reverse', '#clearBtn', '638396gGlnnh', 'map', '259XPzQrT', 'search', 'return\x20(function()\x20', '::/48', 'every', '271347BbEjDV', 'error', 'apply', '{}.constructor(\x22return\x20this\x22)(\x20)', 'split', 'constructor', 'repeat', 'html', '::ffff:', 'table', '2BixpjS']; _0x10e0 = function () { return _0x3bc7d6; }; return _0x10e0(); } function getIpType(_0xd92bed) { const _0x10674d = _0x16a92d, _0x36c390 = parseInt(_0xd92bed['split']('.')[0x0]); if (_0x36c390 === 0xa || _0x36c390 === 0xac && (parseInt(_0xd92bed[_0x10674d(0xc7)]('.')[0x1]) >= 0x10 && parseInt(_0xd92bed['split']('.')[0x1]) <= 0x1f) || _0x36c390 === 0xc0 && parseInt(_0xd92bed[_0x10674d(0xc7)]('.')[0x1]) === 0xa8) return 'Private'; return _0x10674d(0xa1); } function binaryToDecimal(_0x4b42a6) { return parseInt(_0x4b42a6, 0x2); } function binaryToHex(_0x5e7f15) { const _0x106ee3 = _0x16a92d; return '0x' + parseInt(_0x5e7f15, 0x2)[_0x106ee3(0xa0)](0x10)[_0x106ee3(0x9b)](); } function displayResults(_0x22818e) { const _0x3f1b6f = _0x16a92d, _0x28b6cc = $(_0x3f1b6f(0xb3)); _0x28b6cc[_0x3f1b6f(0xca)](''); let _0x1371b6 = 0x1; for (const [_0x5df390, _0x32d448] of Object[_0x3f1b6f(0xaa)](_0x22818e)) { const _0x13e74b = $('<tr\x20class=\x22hover\x22>'), _0xa8b1b1 = $(_0x3f1b6f(0xce))[_0x3f1b6f(0xb0)](_0x5df390), _0x3878a9 = $(_0x3f1b6f(0xce))[_0x3f1b6f(0xb0)](_0x32d448); _0x13e74b[_0x3f1b6f(0xae)](_0xa8b1b1, _0x3878a9), _0x28b6cc[_0x3f1b6f(0xae)](_0x13e74b); } } function clearResults() { const _0xada904 = _0x16a92d; $('#resultTable\x20tbody')[_0xada904(0xa8)](); }
+                </script>
+            </div>
+        </div>
+
+        <div class="drawer-side">
+            <label for="my-drawer-3"
+                aria-label="close sidebar"
+                class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-200"
+                id="menu"></ul>
+        </div>
+    </div>
+
+    <footer class="footer p-10 bg-base-200 text-base-content mt-auto w-full">
+        <aside>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="70"
+                height="70"
+                fill="currentColor"
+                class="bi bi-rocket-takeoff"
+                viewBox="0 0 16 16">
+                <path
+                    d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                <path
+                    d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                <path
+                    d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+            </svg>
+            <p>AZK TECH SUPPORT<br>Providing reliable tech support since 2023</p>
+        </aside>
+        <nav>
+            <h6 class="footer-title">Services</h6>
+            <a class="link link-hover">Configuration</a>
+            <a class="link link-hover">Support</a>
+            <a class="link link-hover">Remote VPN</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Company</h6>
+            <a href="/about-us"
+                class="link link-hover">About us</a>
+            <a href="http://m.me/azk.manager"
+                class="link link-hover">Contact</a>
+            <a href="https://github.com/AZK-Networks"
+                class="link link-hover">Github</a>
+            <a href="https://www.facebook.com/azk.manager"
+                class="link link-hover">Facebook</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Legal</h6>
+            <a href="/terms-of-use"
+                class="link link-hover">Terms of use</a>
+        </nav>
+    </footer>
+</body>
+
+<script src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+<script>
+    const _0x26b8fe = _0x196c; (function (_0x5a2864, _0x20fbd9) { const _0x4ff228 = _0x196c, _0x43e467 = _0x5a2864(); while (!![]) { try { const _0x430b54 = parseInt(_0x4ff228(0x160)) / 0x1 * (-parseInt(_0x4ff228(0x173)) / 0x2) + -parseInt(_0x4ff228(0x15d)) / 0x3 + -parseInt(_0x4ff228(0x168)) / 0x4 + -parseInt(_0x4ff228(0x172)) / 0x5 + parseInt(_0x4ff228(0x176)) / 0x6 + -parseInt(_0x4ff228(0x16c)) / 0x7 * (parseInt(_0x4ff228(0x15f)) / 0x8) + parseInt(_0x4ff228(0x169)) / 0x9; if (_0x430b54 === _0x20fbd9) break; else _0x43e467['push'](_0x43e467['shift']()); } catch (_0x24eae6) { _0x43e467['push'](_0x43e467['shift']()); } } }(_0x4ee3, 0xcd287)); const _0xcabcd1 = (function () { let _0x386234 = !![]; return function (_0x4de076, _0x10f73f) { const _0x3ee46f = _0x386234 ? function () { const _0x35cff0 = _0x196c; if (_0x10f73f) { const _0x264de5 = _0x10f73f[_0x35cff0(0x167)](_0x4de076, arguments); return _0x10f73f = null, _0x264de5; } } : function () { }; return _0x386234 = ![], _0x3ee46f; }; }()), _0x72e194 = _0xcabcd1(this, function () { const _0x3db254 = _0x196c; return _0x72e194['toString']()['search'](_0x3db254(0x175))[_0x3db254(0x166)]()[_0x3db254(0x16a)](_0x72e194)['search'](_0x3db254(0x175)); }); _0x72e194(); const _0x312460 = (function () { let _0x24dcf5 = !![]; return function (_0x2f0e40, _0x5240b1) { const _0x39ff84 = _0x24dcf5 ? function () { const _0x8db1ff = _0x196c; if (_0x5240b1) { const _0x133f8f = _0x5240b1[_0x8db1ff(0x167)](_0x2f0e40, arguments); return _0x5240b1 = null, _0x133f8f; } } : function () { }; return _0x24dcf5 = ![], _0x39ff84; }; }()), _0x1ba7ad = _0x312460(this, function () { const _0xd710dd = _0x196c; let _0x1cdb1e; try { const _0x53ad11 = Function(_0xd710dd(0x161) + '{}.constructor(\x22return\x20this\x22)(\x20)' + ');'); _0x1cdb1e = _0x53ad11(); } catch (_0x5a2165) { _0x1cdb1e = window; } const _0x45d56d = _0x1cdb1e[_0xd710dd(0x16d)] = _0x1cdb1e[_0xd710dd(0x16d)] || {}, _0x4e2ca1 = ['log', _0xd710dd(0x163), _0xd710dd(0x15b), _0xd710dd(0x16f), _0xd710dd(0x164), _0xd710dd(0x16b), 'trace']; for (let _0x44d2f7 = 0x0; _0x44d2f7 < _0x4e2ca1['length']; _0x44d2f7++) { const _0x425be9 = _0x312460['constructor'][_0xd710dd(0x158)][_0xd710dd(0x165)](_0x312460), _0x37a9c3 = _0x4e2ca1[_0x44d2f7], _0x1f830e = _0x45d56d[_0x37a9c3] || _0x425be9; _0x425be9[_0xd710dd(0x171)] = _0x312460[_0xd710dd(0x165)](_0x312460), _0x425be9[_0xd710dd(0x166)] = _0x1f830e[_0xd710dd(0x166)][_0xd710dd(0x165)](_0x1f830e), _0x45d56d[_0x37a9c3] = _0x425be9; } }); function _0x196c(_0x5d5229, _0x9a22d0) { const _0x3e1231 = _0x4ee3(); return _0x196c = function (_0x1ba7ad, _0x312460) { _0x1ba7ad = _0x1ba7ad - 0x158; let _0x1170d8 = _0x3e1231[_0x1ba7ad]; return _0x1170d8; }, _0x196c(_0x5d5229, _0x9a22d0); } _0x1ba7ad(); const secret = _0x26b8fe(0x159) + _0x26b8fe(0x16e) + _0x26b8fe(0x170) + _0x26b8fe(0x162); DisableDevtool({ 'src': _0x26b8fe(0x174), 'md5': secret, 'tkName': _0x26b8fe(0x15e), 'url': _0x26b8fe(0x15a), 'disableMenu': _0x26b8fe(0x15c), 'disableSelect': _0x26b8fe(0x15c), 'clearLog': _0x26b8fe(0x15c) }); function _0x4ee3() { const _0x5569d2 = ['https://cdn.jsdelivr.net/npm/disable-devtool@latest', '(((.+)+)+)+$', '9448104cFRDNs', 'prototype', '0b3cc31', '/error.html', 'info', 'true', '1588740yMqoGP', 'secret', '1364752YYcOfN', '497HcQjWr', 'return\x20(function()\x20', 'd64372ec3', 'warn', 'exception', 'bind', 'toString', 'apply', '6638448GLtswP', '44400681xustsJ', 'constructor', 'table', '35NeKtWN', 'console', '038cb691', 'error', '223aeed8', '__proto__', '8046195kiOAPs', '4090iTLiBg']; _0x4ee3 = function () { return _0x5569d2; }; return _0x4ee3(); }
+</script>
+<script disable-devtool-auto></script>
+
+<!-- Google tag (gtag.js) -->
+<script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-F2DNZ40VNL"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F2DNZ40VNL');
+</script>
+
+</html>
