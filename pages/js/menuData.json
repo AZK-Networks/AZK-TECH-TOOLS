@@ -10,6 +10,11 @@
             "text": "Mikrotik Tools"
         },
         {
+            "type": "link",
+            "text": "Mikrotik Tools Download",
+            "href": "/pages/"
+        },
+        {
             "type": "divider",
             "text": "Juanfi Tools"
         },

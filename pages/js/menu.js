@@ -10,7 +10,7 @@ function createMenu(menuItems) {
             menu.appendChild(li);
         } else if (item.type === 'divider') {
             const div = document.createElement('div');
-            div.className = 'divider divider-secondary';
+            div.className = 'divider divider-start font-bold';
             div.textContent = item.text;
             menu.appendChild(div);
         }
