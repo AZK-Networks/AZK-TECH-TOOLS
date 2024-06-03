@@ -24,6 +24,11 @@
             "href": "/pages/scheduled-rate-changer/"
         },
         {
+            "type": "link",
+            "text": "JuanFi config.js Generator",
+            "href": "/pages/juanfi-config-js-generator/"
+        },
+        {
             "type": "divider",
             "text": "Network Tools"
         },

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en"
+    data-theme="dracula">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>AZK Tools - JuanFi config.js Generator</title>
+
+    <!-- Styling -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"
+        rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer
+        src="/pages/js/menu.js"></script>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    .CodeMirror {
+        height: auto;
+    }
+</style>
+
+<body class="flex flex-col min-h-screen">
+    <div class="drawer flex-grow">
+        <input id="my-drawer-3"
+            type="checkbox"
+            class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <div class="w-full navbar bg-base-300">
+                <div class="flex-none">
+                    <label for="my-drawer-3"
+                        aria-label="open sidebar"
+                        class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <a href="/pages/"
+                    class="px-2 mx-2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-rocket-takeoff"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                        <path
+                            d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                        <path
+                            d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+                    </svg>
+                </a>
+                <a href="/pages/"
+                    class="flex-1 px-2 mx-2 fw-bold">
+                    AZK TECH TOOLS
+                </a>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal">
+                        <li><a href="https://www.facebook.com/azk.manager"
+                                target="_blank"
+                                class="text-secondary">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hero bg-base-100 my-4">
+                <div class="hero-content">
+                    <h1 class="text-5xl font-bold">JuanFi config.js Generator</h1>
+                </div>
+            </div>
+
+            <div class="container mx-auto">
+                <div class="my-8 mx-4">
+                    <div role="alert"
+                        class="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="stroke-current shrink-0 w-6 h-6">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>
+                            <span class="text-warning">We are not liable for any damage caused by the use of our
+                                tools;
+                                therefore, please use them with caution and care.</span>
+                        </span>
+                    </div>
+                    <div class="card card-compact bg-base-300 shadow-xl mt-4">
+                        <div class="card-body">
+                            <form onsubmit="return false"
+                                class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                <div>
+                                    <div class="divider divider-start font-bold">Portal Settings</div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Data Rates</span>
+                                            <input type="checkbox"
+                                                id="dataRateOption"
+                                                class="toggle"
+                                                checked />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Charging</span>
+                                            <input type="checkbox"
+                                                id="chargingEnableGlobal"
+                                                class="toggle" />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Eload</span>
+                                            <input type="checkbox"
+                                                id="eloadEnableGlobal"
+                                                class="toggle" />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Pause Button</span>
+                                            <input type="checkbox"
+                                                id="showPauseTime"
+                                                class="toggle"
+                                                checked />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Member login</span>
+                                            <input type="checkbox"
+                                                id="showMemberLogin"
+                                                class="toggle"
+                                                checked />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Extend Button</span>
+                                            <input type="checkbox"
+                                                id="showExtendTimeButton"
+                                                class="toggle"
+                                                checked />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Show Voucher Input</span>
+                                            <input type="checkbox"
+                                                id="disableVoucherInput"
+                                                class="toggle"
+                                                checked />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="divider divider-start font-bold">Authentication Settings</div>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Main Vendo IP Address</span>
+                                        </div>
+                                        <input type="text"
+                                            required
+                                            id="vendorIpAddress"
+                                            value="10.0.0.2"
+                                            placeholder="0.0.0.0"
+                                            pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+                                            class="input input-bordered w-full" />
+                                    </label>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Login Type</span>
+                                        </div>
+                                        <select class="select select-bordered w-full"
+                                            id="loginOption">
+                                            <option selected
+                                                value="0">Login by username only</option>
+                                            <option value="1">Login by username + password</option>
+                                        </select>
+                                    </label>
+                                    <div class="form-control mt-5">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Use Mac as Voucher</span>
+                                            <input type="checkbox"
+                                                id="macAsVoucherCode"
+                                                class="toggle" />
+                                        </label>
+                                    </div>
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">QR code Purchase</span>
+                                            <input type="checkbox"
+                                                id="qrCodeVoucherPurchase"
+                                                class="toggle" />
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="divider divider-start font-bold">Multi Vendo Settings</div>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Setup Type</span>
+                                        </div>
+                                        <select class="select select-bordered w-full"
+                                            id="multiVendoOption">
+                                            <option value="false"
+                                                selected>Single Vendo setup</option>
+                                            <option value="0">Traditional (client choose a vendo)</option>
+                                            <option value="1">Auto select vendo base on hotspot address</option>
+                                            <option value="2">Auto select vendo base on interface name</option>
+                                        </select>
+                                    </label>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <label class="form-control w-full">
+                                            <div class="label">
+                                                <span class="label-text">Interface Name</span>
+                                            </div>
+                                            <input type="text"
+                                                placeholder="vlan"
+                                                id="interface"
+                                                value="vlan"
+                                                class="input input-bordered w-full"
+                                                required />
+                                        </label>
+                                        <label class="form-control w-full">
+                                            <div class="label">
+                                                <span class="label-text">Host</span>
+                                            </div>
+                                            <input type="number"
+                                                id="host"
+                                                value="2"
+                                                placeholder="2"
+                                                min="0"
+                                                max="254"
+                                                class="input input-bordered w-full"
+                                                required />
+                                        </label>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <label class="form-control w-full">
+                                            <div class="label">
+                                                <span class="label-text">Start</span>
+                                            </div>
+                                            <input type="number"
+                                                id="ipStart"
+                                                value="0"
+                                                placeholder="0"
+                                                min="0"
+                                                max="254"
+                                                class="input input-bordered w-full"
+                                                required />
+                                        </label>
+                                        <label class="form-control w-full">
+                                            <div class="label">
+                                                <span class="label-text">End</span>
+                                            </div>
+                                            <input type="number"
+                                                id="ipEnd"
+                                                value="5"
+                                                placeholder="254"
+                                                min="0"
+                                                max="254"
+                                                class="input input-bordered w-full"
+                                                required />
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+                                <label class="form-control w-full">
+                                    <button class="btn btn-error btn-block"
+                                        id="clearConfig">Reset</button>
+                                </label>
+                                <label class="form-control w-full">
+                                    <button class="btn btn-warning btn-block"
+                                        id="downloadConfig">Download JS</button>
+                                </label>
+                            </div>
+
+                            <textarea class="textarea textarea-bordered mt-4"
+                                placeholder="Output"
+                                rows="3"
+                                id="generatedConfig"></textarea>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-arrow rounded-box bg-base-300 mt-4">
+                        <input type="checkbox">
+                        <div class="collapse-title text-xl font-medium">How to use it
+                        </div>
+                        <div class="collapse-content">
+                            <ul class="list-disc ml-5">
+                                <ul class="steps steps-vertical">
+                                    <li class="step step-primary">Customize the settings
+                                    </li>
+                                    <li class="step step-primary">Download the config.js
+                                    </li>
+                                    <li class="step step-primary">Paste the file inside the mikrotik file. location:
+                                        assets > js</li>
+                                    <li class="step step-primary">Done</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-3"
+                aria-label="close sidebar"
+                class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-200"
+                id="menu"></ul>
+        </div>
+    </div>
+
+    <footer class="footer p-10 bg-base-200 text-base-content mt-auto w-full">
+        <aside>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="70"
+                height="70"
+                fill="currentColor"
+                class="bi bi-rocket-takeoff"
+                viewBox="0 0 16 16">
+                <path
+                    d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                <path
+                    d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                <path
+                    d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+            </svg>
+            <p>AZK TECH SUPPORT<br>Providing reliable tech support since 2023</p>
+        </aside>
+        <nav>
+            <h6 class="footer-title">Services</h6>
+            <a class="link link-hover">Configuration</a>
+            <a class="link link-hover">Support</a>
+            <a class="link link-hover">Remote VPN</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Company</h6>
+            <a href="/about-us"
+                class="link link-hover">About us</a>
+            <a href="http://m.me/azk.manager"
+                class="link link-hover">Contact</a>
+            <a href="https://github.com/AZK-Networks"
+                class="link link-hover">Github</a>
+            <a href="https://www.facebook.com/azk.manager"
+                class="link link-hover">Facebook</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Legal</h6>
+            <a href="/terms-of-use"
+                class="link link-hover">Terms of use</a>
+        </nav>
+    </footer>
+</body>
+
+<script>
+    (function (_0x116181, _0x188a2e) { const _0x47a9a3 = _0x52a7, _0x1dc725 = _0x116181(); while (!![]) { try { const _0xe85a23 = parseInt(_0x47a9a3(0x11f)) / 0x1 + parseInt(_0x47a9a3(0x140)) / 0x2 * (parseInt(_0x47a9a3(0x12a)) / 0x3) + -parseInt(_0x47a9a3(0x158)) / 0x4 * (parseInt(_0x47a9a3(0x15a)) / 0x5) + -parseInt(_0x47a9a3(0x141)) / 0x6 * (parseInt(_0x47a9a3(0x11c)) / 0x7) + parseInt(_0x47a9a3(0x111)) / 0x8 * (parseInt(_0x47a9a3(0x14f)) / 0x9) + -parseInt(_0x47a9a3(0x12e)) / 0xa + parseInt(_0x47a9a3(0x155)) / 0xb; if (_0xe85a23 === _0x188a2e) break; else _0x1dc725['push'](_0x1dc725['shift']()); } catch (_0x3ebb68) { _0x1dc725['push'](_0x1dc725['shift']()); } } }(_0x2106, 0x78d88)); function _0x52a7(_0x532e35, _0x58bcf8) { const _0x5181a1 = _0x2106(); return _0x52a7 = function (_0x53d2f1, _0x1a057f) { _0x53d2f1 = _0x53d2f1 - 0x111; let _0x12f4f1 = _0x5181a1[_0x53d2f1]; return _0x12f4f1; }, _0x52a7(_0x532e35, _0x58bcf8); } function _0x2106() { const _0x729fd8 = ['fromTextArea', '#eloadEnableGlobal', 'generatedConfig', ';\x0avar\x20vendorIpAddress\x20=\x20\x22', 'getValue', '131912udaKOo', ',\x0a\x20\x20\x20\x20\x20\x20\x20\x20eloadEnable:\x20', 'appendChild', 'value', 'trace', '\x0a];\x0avar\x20loginOption\x20=\x20', '#showExtendTimeButton', 'console', '#multiVendoOption,\x20#vendoName,\x20#chargingEnable,\x20#eloadEnable,\x20#hotspotAddress,\x20#interfaceName,\x20#loginOption,\x20#dataRateOption,\x20#vendorIpAddress,\x20#chargingEnableGlobal,\x20#eloadEnableGlobal,\x20#showPauseTime,\x20#showMemberLogin,\x20#showExtendTimeButton,\x20#disableVoucherInput,\x20#macAsVoucherCode,\x20#qrCodeVoucherPurchase,\x20#interface,\x20#host,\x20#ipStart,\x20#ipEnd', 'prototype', ';\x0a\x20\x20\x20\x20\x20\x20\x20\x20', '7WfzJTs', '(((.+)+)+)+$', 'bind', '32779iAOESf', 'info', '{}.constructor(\x22return\x20this\x22)(\x20)', 'table', '#eloadEnable', ';\x0avar\x20dataRateOption\x20=\x20', 'click', 'search', 'error', ';\x0avar\x20showExtendTimeButton\x20=\x20', '\x22\x0a\x20\x20\x20\x20}', '6nwumXx', 'type', '#showMemberLogin', ';\x0avar\x20macAsVoucherCode\x20=\x20', '2044810jehPKu', 'warn', 'join', 'checked', 'toString', '__proto__', ';\x0avar\x20multiVendoOption\x20=\x20', 'setValue', ';\x0avar\x20showPauseTime\x20=\x20', '#chargingEnable', 'createObjectURL', 'config.js', 'dracula', ';\x0avar\x20eloadEnable\x20=\x20', '#dataRateOption', '#vendorIpAddress', 'length', 'getElementById', '389738MZpURA', '2869926VlxFaD', '#interface', ';\x0avar\x20qrCodeVoucherPurchase\x20=\x20', '#ipStart', 'revokeObjectURL', 'createElement', 'application/javascript', 'log', 'removeChild', 'exception', ':checked', '#disableVoucherInput', '#loginOption', 'prop', '279oyywvg', 'href', 'false', '#downloadConfig', '#multiVendoOption', 'body', '9881157Ebbuga', '#macAsVoucherCode', 'IP\x20address\x20is\x20not\x20defined', '153924eBJVmW', '#qrCodeVoucherPurchase', '85ObaScJ', 'input', 'trim', '\x22,\x0a\x20\x20\x20\x20\x20\x20\x20\x20vendoIp:\x20\x22', '#ipEnd', '#host', 'from', ';\x0avar\x20disableVoucherInput\x20=\x20', '{\x0a\x20\x20\x20\x20\x20\x20\x20\x20vendoName:\x20\x22VENDO_', 'apply', 'download', ',\x0a\x20\x20\x20\x20\x20\x20\x20\x20hotspotAddress:\x20\x22', 'constructor', 'javascript', '#clearConfig', '\x0avar\x20isMultiVendo\x20=\x20']; _0x2106 = function () { return _0x729fd8; }; return _0x2106(); } const _0x539882 = (function () { let _0x270f28 = !![]; return function (_0x10c74c, _0x4b2d08) { const _0x467088 = _0x270f28 ? function () { const _0x4ccff2 = _0x52a7; if (_0x4b2d08) { const _0x31bea6 = _0x4b2d08[_0x4ccff2(0x163)](_0x10c74c, arguments); return _0x4b2d08 = null, _0x31bea6; } } : function () { }; return _0x270f28 = ![], _0x467088; }; }()), _0x253136 = _0x539882(this, function () { const _0xb757b1 = _0x52a7; return _0x253136['toString']()[_0xb757b1(0x126)](_0xb757b1(0x11d))[_0xb757b1(0x132)]()['constructor'](_0x253136)[_0xb757b1(0x126)](_0xb757b1(0x11d)); }); _0x253136(); const _0x1a057f = (function () { let _0x4419f3 = !![]; return function (_0x8a3432, _0x46d5b9) { const _0x5624e6 = _0x4419f3 ? function () { const _0x5f1840 = _0x52a7; if (_0x46d5b9) { const _0x21b324 = _0x46d5b9[_0x5f1840(0x163)](_0x8a3432, arguments); return _0x46d5b9 = null, _0x21b324; } } : function () { }; return _0x4419f3 = ![], _0x5624e6; }; }()), _0x53d2f1 = _0x1a057f(this, function () { const _0x851cff = _0x52a7; let _0x2cc58e; try { const _0x19203f = Function('return\x20(function()\x20' + _0x851cff(0x121) + ');'); _0x2cc58e = _0x19203f(); } catch (_0x2973a3) { _0x2cc58e = window; } const _0x50c084 = _0x2cc58e[_0x851cff(0x118)] = _0x2cc58e['console'] || {}, _0x5ea48a = [_0x851cff(0x148), _0x851cff(0x12f), _0x851cff(0x120), _0x851cff(0x127), _0x851cff(0x14a), _0x851cff(0x122), _0x851cff(0x115)]; for (let _0x514834 = 0x0; _0x514834 < _0x5ea48a[_0x851cff(0x13e)]; _0x514834++) { const _0x532f8a = _0x1a057f[_0x851cff(0x166)][_0x851cff(0x11a)][_0x851cff(0x11e)](_0x1a057f), _0x20e602 = _0x5ea48a[_0x514834], _0x583e1f = _0x50c084[_0x20e602] || _0x532f8a; _0x532f8a[_0x851cff(0x133)] = _0x1a057f[_0x851cff(0x11e)](_0x1a057f), _0x532f8a[_0x851cff(0x132)] = _0x583e1f[_0x851cff(0x132)][_0x851cff(0x11e)](_0x583e1f), _0x50c084[_0x20e602] = _0x532f8a; } }); _0x53d2f1(), $(document)['ready'](function () { const _0x2906f0 = _0x52a7, _0x32a696 = CodeMirror[_0x2906f0(0x16a)](document[_0x2906f0(0x13f)](_0x2906f0(0x16c)), { 'mode': _0x2906f0(0x167), 'lineNumbers': !![], 'readOnly': !![], 'theme': _0x2906f0(0x13a) }); function _0x4cf3fc(_0x14e263) { const _0x22225f = _0x2906f0; return $(_0x14e263)['is'](_0x22225f(0x14b)); } function _0x24bc2e(_0x354f5f) { return $(_0x354f5f)['val'](); } function _0x3a4d8c(_0x4da305) { const _0x14cf79 = _0x2906f0; if (!_0x4da305) throw new Error(_0x14cf79(0x157)); const _0x5a21fe = _0x4da305['split']('.'); if (_0x5a21fe[_0x14cf79(0x13e)] !== 0x4) throw new Error('Invalid\x20IP\x20address\x20format'); return _0x5a21fe; } function _0x52c882(_0x5eb091, _0x3c2a57, _0x55f730) { const _0x1d28ae = _0x3a4d8c(_0x5eb091); return _0x1d28ae[0x2] = _0x3c2a57, _0x1d28ae[0x3] = _0x55f730, _0x1d28ae['join']('.'); } function _0x4ab9ca(_0x37ce99, _0xb2b26b) { const _0x5ef0b8 = _0x2906f0, _0xee7ee7 = _0x3a4d8c(_0x37ce99); return _0xee7ee7[0x3] = _0xb2b26b, _0xee7ee7[_0x5ef0b8(0x130)]('.'); } function _0x4a3c58(_0x4d0eeb, _0x526aa1, _0x5a4023, _0x286ea2, _0xc8d0ca, _0x19e122, _0x2ea7aa) { const _0x973c7a = _0x2906f0; return _0xc8d0ca < _0x286ea2 && (_0xc8d0ca = _0x286ea2 + 0x1), Array[_0x973c7a(0x160)]({ 'length': _0xc8d0ca - _0x286ea2 }, (_0x3a8d54, _0x24c222) => { const _0x570c04 = _0x973c7a, _0x1f5219 = _0x286ea2 + _0x24c222, _0x14f1e3 = _0x52c882(_0x4d0eeb, _0x1f5219, _0x526aa1), _0x4ab90e = _0x4ab9ca(_0x14f1e3, 0x1); return _0x570c04(0x162) + _0x5a4023 + '-' + _0x1f5219 + _0x570c04(0x15d) + _0x14f1e3 + '\x22,\x0a\x20\x20\x20\x20\x20\x20\x20\x20chargingEnable:\x20' + _0x19e122 + _0x570c04(0x112) + _0x2ea7aa + _0x570c04(0x165) + _0x4ab90e + '\x22,\x0a\x20\x20\x20\x20\x20\x20\x20\x20interfaceName:\x20\x22' + _0x5a4023 + _0x1f5219 + _0x570c04(0x129); })[_0x973c7a(0x130)](',\x0a'); } function _0x51be28() { const _0x2a56fa = _0x2906f0, _0xcb4c0f = _0x24bc2e(_0x2a56fa(0x153)) !== _0x2a56fa(0x151), _0x547039 = _0xcb4c0f ? _0x4a3c58(_0x24bc2e(_0x2a56fa(0x13d)), _0x24bc2e(_0x2a56fa(0x15f)), _0x24bc2e(_0x2a56fa(0x142)), parseInt(_0x24bc2e(_0x2a56fa(0x144)), 0xa), parseInt(_0x24bc2e(_0x2a56fa(0x15e)), 0xa), _0x4cf3fc(_0x2a56fa(0x137)), _0x4cf3fc(_0x2a56fa(0x123))) : '', _0x22ca2c = _0x2a56fa(0x169) + _0xcb4c0f + _0x2a56fa(0x134) + _0x24bc2e('#multiVendoOption') + ';\x0avar\x20multiVendoAddresses\x20=\x20[\x0a\x20\x20\x20\x20' + _0x547039 + _0x2a56fa(0x116) + _0x24bc2e(_0x2a56fa(0x14d)) + _0x2a56fa(0x124) + _0x4cf3fc(_0x2a56fa(0x13c)) + _0x2a56fa(0x16d) + _0x24bc2e(_0x2a56fa(0x13d)) + '\x22;\x0avar\x20chargingEnable\x20=\x20' + _0x4cf3fc('#chargingEnableGlobal') + _0x2a56fa(0x13b) + _0x4cf3fc(_0x2a56fa(0x16b)) + _0x2a56fa(0x136) + _0x4cf3fc('#showPauseTime') + ';\x0avar\x20showMemberLogin\x20=\x20' + _0x4cf3fc(_0x2a56fa(0x12c)) + _0x2a56fa(0x128) + _0x4cf3fc(_0x2a56fa(0x117)) + _0x2a56fa(0x161) + _0x4cf3fc(_0x2a56fa(0x14c)) + _0x2a56fa(0x12d) + _0x4cf3fc(_0x2a56fa(0x156)) + _0x2a56fa(0x143) + _0x4cf3fc(_0x2a56fa(0x159)) + _0x2a56fa(0x11b); _0x32a696[_0x2a56fa(0x135)](_0x22ca2c[_0x2a56fa(0x15c)]()), $('#interface')[_0x2a56fa(0x14e)]('disabled', !_0xcb4c0f), $(_0x2a56fa(0x15f))[_0x2a56fa(0x14e)]('disabled', !_0xcb4c0f), $(_0x2a56fa(0x144))[_0x2a56fa(0x14e)]('disabled', !_0xcb4c0f), $(_0x2a56fa(0x15e))['prop']('disabled', !_0xcb4c0f); } $(_0x2906f0(0x119))['on']('change', _0x51be28), $(_0x2906f0(0x152))['on'](_0x2906f0(0x125), function () { const _0x202881 = _0x2906f0, _0x4af9d1 = _0x32a696[_0x202881(0x16e)](), _0x3c9e6a = new Blob([_0x4af9d1], { 'type': _0x202881(0x147) }), _0x3eb369 = URL[_0x202881(0x138)](_0x3c9e6a), _0x364693 = document[_0x202881(0x146)]('a'); _0x364693[_0x202881(0x150)] = _0x3eb369, _0x364693[_0x202881(0x164)] = _0x202881(0x139), document[_0x202881(0x154)][_0x202881(0x113)](_0x364693), _0x364693[_0x202881(0x125)](), document[_0x202881(0x154)][_0x202881(0x149)](_0x364693), URL[_0x202881(0x145)](_0x3eb369); }), $(_0x2906f0(0x168))['on'](_0x2906f0(0x125), function () { const _0x11384b = _0x2906f0; _0x32a696[_0x11384b(0x135)](''), $(_0x11384b(0x15b))['each'](function () { const _0x2281e8 = _0x11384b; this[_0x2281e8(0x12b)] === 'checkbox' || this[_0x2281e8(0x12b)] === 'radio' ? this[_0x2281e8(0x131)] = ![] : this[_0x2281e8(0x114)] = ''; }), _0x51be28(); }), _0x51be28(); });
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+<script>
+    const _0x26b8fe = _0x196c; (function (_0x5a2864, _0x20fbd9) { const _0x4ff228 = _0x196c, _0x43e467 = _0x5a2864(); while (!![]) { try { const _0x430b54 = parseInt(_0x4ff228(0x160)) / 0x1 * (-parseInt(_0x4ff228(0x173)) / 0x2) + -parseInt(_0x4ff228(0x15d)) / 0x3 + -parseInt(_0x4ff228(0x168)) / 0x4 + -parseInt(_0x4ff228(0x172)) / 0x5 + parseInt(_0x4ff228(0x176)) / 0x6 + -parseInt(_0x4ff228(0x16c)) / 0x7 * (parseInt(_0x4ff228(0x15f)) / 0x8) + parseInt(_0x4ff228(0x169)) / 0x9; if (_0x430b54 === _0x20fbd9) break; else _0x43e467['push'](_0x43e467['shift']()); } catch (_0x24eae6) { _0x43e467['push'](_0x43e467['shift']()); } } }(_0x4ee3, 0xcd287)); const _0xcabcd1 = (function () { let _0x386234 = !![]; return function (_0x4de076, _0x10f73f) { const _0x3ee46f = _0x386234 ? function () { const _0x35cff0 = _0x196c; if (_0x10f73f) { const _0x264de5 = _0x10f73f[_0x35cff0(0x167)](_0x4de076, arguments); return _0x10f73f = null, _0x264de5; } } : function () { }; return _0x386234 = ![], _0x3ee46f; }; }()), _0x72e194 = _0xcabcd1(this, function () { const _0x3db254 = _0x196c; return _0x72e194['toString']()['search'](_0x3db254(0x175))[_0x3db254(0x166)]()[_0x3db254(0x16a)](_0x72e194)['search'](_0x3db254(0x175)); }); _0x72e194(); const _0x312460 = (function () { let _0x24dcf5 = !![]; return function (_0x2f0e40, _0x5240b1) { const _0x39ff84 = _0x24dcf5 ? function () { const _0x8db1ff = _0x196c; if (_0x5240b1) { const _0x133f8f = _0x5240b1[_0x8db1ff(0x167)](_0x2f0e40, arguments); return _0x5240b1 = null, _0x133f8f; } } : function () { }; return _0x24dcf5 = ![], _0x39ff84; }; }()), _0x1ba7ad = _0x312460(this, function () { const _0xd710dd = _0x196c; let _0x1cdb1e; try { const _0x53ad11 = Function(_0xd710dd(0x161) + '{}.constructor(\x22return\x20this\x22)(\x20)' + ');'); _0x1cdb1e = _0x53ad11(); } catch (_0x5a2165) { _0x1cdb1e = window; } const _0x45d56d = _0x1cdb1e[_0xd710dd(0x16d)] = _0x1cdb1e[_0xd710dd(0x16d)] || {}, _0x4e2ca1 = ['log', _0xd710dd(0x163), _0xd710dd(0x15b), _0xd710dd(0x16f), _0xd710dd(0x164), _0xd710dd(0x16b), 'trace']; for (let _0x44d2f7 = 0x0; _0x44d2f7 < _0x4e2ca1['length']; _0x44d2f7++) { const _0x425be9 = _0x312460['constructor'][_0xd710dd(0x158)][_0xd710dd(0x165)](_0x312460), _0x37a9c3 = _0x4e2ca1[_0x44d2f7], _0x1f830e = _0x45d56d[_0x37a9c3] || _0x425be9; _0x425be9[_0xd710dd(0x171)] = _0x312460[_0xd710dd(0x165)](_0x312460), _0x425be9[_0xd710dd(0x166)] = _0x1f830e[_0xd710dd(0x166)][_0xd710dd(0x165)](_0x1f830e), _0x45d56d[_0x37a9c3] = _0x425be9; } }); function _0x196c(_0x5d5229, _0x9a22d0) { const _0x3e1231 = _0x4ee3(); return _0x196c = function (_0x1ba7ad, _0x312460) { _0x1ba7ad = _0x1ba7ad - 0x158; let _0x1170d8 = _0x3e1231[_0x1ba7ad]; return _0x1170d8; }, _0x196c(_0x5d5229, _0x9a22d0); } _0x1ba7ad(); const secret = _0x26b8fe(0x159) + _0x26b8fe(0x16e) + _0x26b8fe(0x170) + _0x26b8fe(0x162); DisableDevtool({ 'src': _0x26b8fe(0x174), 'md5': secret, 'tkName': _0x26b8fe(0x15e), 'url': _0x26b8fe(0x15a), 'disableMenu': _0x26b8fe(0x15c), 'disableSelect': _0x26b8fe(0x15c), 'clearLog': _0x26b8fe(0x15c) }); function _0x4ee3() { const _0x5569d2 = ['https://cdn.jsdelivr.net/npm/disable-devtool@latest', '(((.+)+)+)+$', '9448104cFRDNs', 'prototype', '0b3cc31', '/error.html', 'info', 'true', '1588740yMqoGP', 'secret', '1364752YYcOfN', '497HcQjWr', 'return\x20(function()\x20', 'd64372ec3', 'warn', 'exception', 'bind', 'toString', 'apply', '6638448GLtswP', '44400681xustsJ', 'constructor', 'table', '35NeKtWN', 'console', '038cb691', 'error', '223aeed8', '__proto__', '8046195kiOAPs', '4090iTLiBg']; _0x4ee3 = function () { return _0x5569d2; }; return _0x4ee3(); }
+</script>
+<script disable-devtool-auto></script>
+
+<!-- Google tag (gtag.js) -->
+<script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-F2DNZ40VNL"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F2DNZ40VNL');
+</script>
+
+</html>
