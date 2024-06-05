@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en"
+    data-theme="dracula">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>AZK Tools - PCC Loadbalance & Recursive Failover</title>
+
+    <!-- Styling -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"
+        rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer
+        src="/pages/js/menu.js"></script>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    .CodeMirror {
+        height: auto;
+    }
+</style>
+
+<body class="flex flex-col min-h-screen">
+    <div class="drawer flex-grow">
+        <input id="my-drawer-3"
+            type="checkbox"
+            class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <div class="w-full navbar bg-base-300">
+                <div class="flex-none">
+                    <label for="my-drawer-3"
+                        aria-label="open sidebar"
+                        class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <a href="/pages/"
+                    class="px-2 mx-2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-rocket-takeoff"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                        <path
+                            d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                        <path
+                            d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+                    </svg>
+                </a>
+                <a href="/pages/"
+                    class="flex-1 px-2 mx-2 fw-bold">
+                    AZK TECH TOOLS
+                </a>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal">
+                        <li><a href="https://www.facebook.com/azk.manager"
+                                target="_blank"
+                                class="text-secondary">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hero bg-base-100 my-4">
+                <div class="hero-content">
+                    <h1 class="text-5xl font-bold">PCC Loadbalance & Recursive Failover</h1>
+                </div>
+            </div>
+
+            <div class="container mx-auto">
+                <div class="my-8 mx-4">
+                    <div role="alert"
+                        class="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="stroke-current shrink-0 w-6 h-6">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>
+                            <span class="text-warning">We are not liable for any damage caused by the use of our
+                                tools;
+                                therefore, please use them with caution and care.</span>
+                        </span>
+                    </div>
+                    <div class="card card-compact bg-base-300 shadow-xl mt-4">
+                        <form class="card-body"
+                            onsubmit="return false">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div>
+                                    <div class="divider divider-start font-bold">Network Settings</div>
+
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Number of ISPs</span>
+                                        </div>
+                                        <input type="number"
+                                            id="ispCount"
+                                            min="2"
+                                            max="16"
+                                            value="2"
+                                            required
+                                            class="input input-bordered w-full" />
+                                    </label>
+
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                        <label class="form-control w-full">
+                                            <div class="label">
+                                                <span class="label-text">Lan Address</span>
+                                            </div>
+                                            <input type="text"
+                                                required
+                                                id="localIP"
+                                                value="192.168.88.0/0"
+                                                placeholder="0.0.0.0/0"
+                                                pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{0}/\d{1,3}\"
+                                                class="input input-bordered w-full" />
+                                        </label>
+                                        <label class="form-control w-full">
+                                            <div class="label">
+                                                <span class="label-text">Lan Interface</span>
+                                            </div>
+                                            <input type="text"
+                                                required
+                                                id="localLan"
+                                                value="LAN"
+                                                placeholder="lan-br"
+                                                class="input input-bordered w-full" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="divider divider-start font-bold">Wan Details</div>
+                                    <div id="ispInputs"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+                                <label class="form-control w-full">
+                                    <button class="btn btn-error btn-block"
+                                        id="clearConfig">Reset</button>
+                                </label>
+                                <label class="form-control w-full">
+                                    <button class="btn btn-warning btn-block"
+                                        id="generate">Generate</button>
+                                </label>
+                            </div>
+
+                            <textarea class="textarea textarea-bordered mt-4"
+                                placeholder="Output"
+                                rows="3"
+                                id="generatedConfig"></textarea>
+                        </form>
+                    </div>
+                    <div class="collapse collapse-arrow rounded-box bg-base-300 mt-4">
+                        <input type="checkbox">
+                        <div class="collapse-title text-xl font-medium">How to use it
+                        </div>
+                        <div class="collapse-content">
+                            <ul class="list-disc ml-5">
+                                <ul class="steps steps-vertical">
+                                    <li class="step step-primary">Indentify the interface name and gateway of your ISP
+                                    </li>
+                                    <li class="step step-primary">Fill the form and generate
+                                    </li>
+                                    <li class="step step-primary">Paste the script inside the terminal</li>
+                                    <li class="step step-primary">Done</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-3"
+                aria-label="close sidebar"
+                class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-200"
+                id="menu"></ul>
+        </div>
+    </div>
+
+    <footer class="footer p-10 bg-base-200 text-base-content mt-auto w-full">
+        <aside>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="70"
+                height="70"
+                fill="currentColor"
+                class="bi bi-rocket-takeoff"
+                viewBox="0 0 16 16">
+                <path
+                    d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                <path
+                    d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                <path
+                    d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+            </svg>
+            <p>AZK TECH SUPPORT<br>Providing reliable tech support since 2023</p>
+        </aside>
+        <nav>
+            <h6 class="footer-title">Services</h6>
+            <a class="link link-hover">Configuration</a>
+            <a class="link link-hover">Support</a>
+            <a class="link link-hover">Remote VPN</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Company</h6>
+            <a href="/about-us"
+                class="link link-hover">About us</a>
+            <a href="http://m.me/azk.manager"
+                class="link link-hover">Contact</a>
+            <a href="https://github.com/AZK-Networks"
+                class="link link-hover">Github</a>
+            <a href="https://www.facebook.com/azk.manager"
+                class="link link-hover">Facebook</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Legal</h6>
+            <a href="/terms-of-use"
+                class="link link-hover">Terms of use</a>
+        </nav>
+    </footer>
+</body>
+
+
+<script>
+    function _0x2585() { const _0xf650ad = ['_conn\x0a', '\x22>\x0a\x20\x20\x20\x20\x20\x20\x20', '208.67.222', '\x20passthrou', 'grEpQ', 'input', '\x20\x20\x20\x20\x20\x20\x20\x20na', '9.9.9.9', '\x20<span\x20cla', '\x0a/ip\x20firew', 'init', 'n\x20Speed\x20(M', '<div\x20class', 'map', 'push', '=no-mark\x20i', '\x20gateway=', '9.9', 'address-ty', 'debu', 'tep=\x2210\x22\x0a\x20', 'table', '43357VcxxrT', '\x20\x20\x20\x20\x20\x20\x20pla', 'ol\x20w-full\x22', 'constructo', 'javascript', 'dns', 'test', '\x2016\x20ISPs\x20a', 'GwzJH', 'function\x20*', '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20', 'st=local\x0a', 'stateObjec', 'gateway=', 'DNS\x22\x0a\x20\x20\x20\x20\x20', 'sAodf', 'n-mark=no-', 'mark\x20new-c', '\x5cd{1,3}\x5c.\x5c', 'rPmMB', '</span>\x0a\x20\x20', 'mIyZn', 'bel\x20class=', '_conn\x20dst-', 'ace=', '=new\x20conne', 'wnmTV', 'n>\x0a\x20\x20\x20\x20\x20\x20\x20', '\x20\x20\x20\x20\x20\x20\x20</l', 'click', 'ontrol\x20w-f', '(((.+)+)+)', 's-list\x0aadd', '3}\x5c.\x5cd{1,3', 'able=main\x20', '=\x22label\x22>\x0a', 'e)\x20{}', '.1\x22\x0a\x20\x20\x20\x20\x20\x20', '1.0.0.1', 'BmBLA', '#generate', 'lg:grid-co', 'in=prerout', '\x20\x20\x20\x20\x20\x20id=\x22', 'id-cols-2\x20', 'string', '810168LfmkIt', 'mBKHU', 'DVACt', 'holder=\x2219', 's=\x22grid\x20gr', '149.112.11', '\x20</div>\x0a\x20\x20', 'n-mark=', 'me=\x22isp', '\x20\x20\x20\x20id=\x22is', 'l\x20w-full\x22>', 'target-sco', 'Minimum\x20of', 'terface\x20', 'tion-class', '_conn\x20new-', 'll\x22\x0a\x20\x20\x20\x20\x20\x20', 'nterface-l', '\x20\x20\x20\x20\x20\x20<spa', 'EYxQU', 'all\x20addres', 'tion-state', 'ing\x20chain=', '8.9', 'querade\x0a', 'ut\x20type=\x22t', '8.8.4.4', 'orm-contro', 'a-zA-Z_$][', '2059484dzReBG', '\x20new-routi', 'empty', '1.1.1.1', 'Gateway', 'table\x0a', '\x20connectio', 'pe=!local\x20', 'isp', 'lzUKs', '1465OQdroc', 'er\x0a', 'form-contr', 'ss=', 'unyNL', 'e=11\x0a', 'address-an', 'onfig', '\x20\x20placehol', '\x20\x20</div>\x0a\x20', 'Please\x20fil', '<label\x20cla', 'ired\x20/>\x0a\x20\x20', '=mark-conn', '2103852eLOgTl', 'length', 'dSoCC', '$]*)', 'e=\x22isp', '\x20routing-t', '185.228.16', 'search', 'trim', '\x20\x20\x20\x20\x20\x20\x20\x20id', 'return\x20(fu', '#isp', 'way</span>', '\x22label\x22>\x0a\x20', 'Name', 'able=to-', 'ass=\x22input', 'ctor(\x22retu', '#ispCount', '{1,3}\x5c.\x5cd{', '\x20list\x20memb', 'wpHyL', '\x20list=loca', 'Name\x22\x0a\x20\x20\x20\x20', '\x20\x20\x20\x20\x20\x20requ', '\x20\x20\x20\x20\x20\x20\x20\x20\x20<', '0-9a-zA-Z_', 'l-text\x22>In', '\x0a/ip\x20route', 'vNIHy', 'terface=', '\x20type=\x22tex', '\x20placehold', 'ng-mark=to', '7113402gqocLT', 'e=12\x0a', '8.8.8.8', '\x20<input\x20ty', 'ls-4\x20gap-2', 'cal\x0a', '10ZqErHl', 'nction()\x20', 'all\x20mangle', '\x20Name</spa', '\x5c(\x20*\x5c)', 'FIsyW', 'call', '=\x22isp', 'gRNfr', 'IqFSU', '_conn\x20in-i', 'add\x20action', '\x20class=\x22in', '=mark-rout', 'gger', '/interface', 'change', '3267570HveEwH', '\x20src-addre', 'ame=\x22isp', '\x20\x20\x20\x20\x20\x20\x20nam', '/div>\x0a\x20\x20\x20\x20', 'apply', 'add\x20distan', 'ce=', 'onnection-', '\x20\x20\x20\x20\x20\x20<inp', 'action=mas', 'Gateway\x22\x0a\x20', 'LYFEd', '}\x5c.\x5cd{1,3}', 'arget-scop', 'BPS)</span', '__proto__', '76.76.19.1', 'prototype', 'name', 'dracula', 'ceil', 'nterface=', 'YhFEP', '-full\x22/>\x0a\x20', '>\x0a\x20\x20\x20\x20\x20\x20\x20\x20', 'exception', 'DNS', 'generatedC', 'd-port:', 'ing\x20connec', 'eway=ping\x20', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20', '\x22input\x20inp', 'rol\x20w-full', 'in=\x220\x22\x0a\x20\x20\x20', '\x20new-conne', '\x20scope=10\x20', 'mKnWb', 'bind', 'QiSHh', '\x20\x20\x20\x20\x20\x20\x20\x20\x20', '2.168.', 'scope=10\x20t', 'n\x20class=\x22l', 'info', 'l\x22>\x0a\x20\x20\x20\x20\x20\x20', 'ezfJO', 'ifier=src-', 'abel-text\x22', 'ds\x20for\x20ISP', 'log', '\x20\x20<span\x20cl', 'v>\x0a\x20\x20\x20\x20\x20\x20\x20', '3148VsXfjv', 'add\x20interf', '1,3}\x22\x0a\x20\x20\x20\x20', 'Speed\x22\x0a\x20\x20\x20', 'gh=no\x20src-', '\x20dst-addre', 't\x22\x0a\x20\x20\x20\x20\x20\x20\x20', 'toString', 'append', 'lass=\x22labe', 'output\x20con', 'abel>\x0a\x20\x20\x20\x20', 'while\x20(tru', 'mpRWp', 'console', 'bordered\x20w', '\x20fib\x0a', '{}.constru', 'add\x20name=t', 'ss=\x22label-', 'ction-mark', '=new\x20in-in', 'YRHAw', 'n-interfac', 'pe=\x22text\x22\x0a', '208.67.220', '-text\x22>DNS', 'HZOxD', '40WPuzlf', 'forEach', '</div>\x0a\x20\x20\x20', '76.223.122', 'prerouting', '\x20\x20</label>', 'gateway', 'ready', 'getElement', 'd\x20chain=sr', 'iOIKy', 'counter', 'Tncta', '\x20\x20\x20\x20\x20\x20\x20\x20\x20m', 'lDquq', '\x20check-gat', 't\x20type=\x22nu', '\x20list\x0aadd\x20', 'chain', 'ut-bordere', '\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20', '\x22\x0a\x20\x20\x20\x20\x20\x20\x20\x20', 'l\x20all\x20fiel', '\x20pattern=\x22', 'reduce', '76.76.10.0', '\x20\x20\x20\x20\x20\x20\x20\x20cl', '#ispInputs', '\x20<div\x20clas', '\x20\x20\x20\x20\x20\x20</di', '\x22form-cont', 'per-connec', 'all\x20nat\x0aad', 'ById', '\x20\x20\x20\x20\x20\x20\x20<la', 's=\x22label\x22>', 'nection-ma', '\x20\x20\x20\x20class=', 'address-li', 'val', 'el\x20class=\x22', 'cnat\x20out-i', 'ss-list=lo', '\x5c+\x5c+\x20*(?:[', 'trace', '.222', '\x20list=WAN\x0a', 'mark=', 'ss=\x22form-c', '>Connectio']; _0x2585 = function () { return _0xf650ad; }; return _0x2585(); } const _0x24cb93 = _0x3efc; (function (_0x37d2a5, _0x23da0f) { const _0x34048a = _0x3efc, _0x366018 = _0x37d2a5(); while (!![]) { try { const _0x5c7323 = -parseInt(_0x34048a(0x1ea)) / 0x1 + -parseInt(_0x34048a(0x218)) / 0x2 + parseInt(_0x34048a(0x286)) / 0x3 + -parseInt(_0x34048a(0x2bc)) / 0x4 * (parseInt(_0x34048a(0x23f)) / 0x5) + -parseInt(_0x34048a(0x24d)) / 0x6 + parseInt(_0x34048a(0x235)) / 0x7 * (parseInt(_0x34048a(0x2d8)) / 0x8) + -parseInt(_0x34048a(0x26f)) / 0x9 * (parseInt(_0x34048a(0x275)) / 0xa); if (_0x5c7323 === _0x23da0f) break; else _0x366018['push'](_0x366018['shift']()); } catch (_0x299d71) { _0x366018['push'](_0x366018['shift']()); } } }(_0x2585, 0xb4b66)); const _0x427b7a = (function () { let _0x5c8ed1 = !![]; return function (_0x275fbb, _0x86eece) { const _0x1b13da = _0x3efc; if (_0x1b13da(0x1fd) === _0x1b13da(0x1fd)) { const _0x487fff = _0x5c8ed1 ? function () { const _0x432317 = _0x1b13da; if (_0x86eece) { if (_0x432317(0x1f9) === _0x432317(0x1f2)) return _0x3e61b7; else { const _0x3928ac = _0x86eece[_0x432317(0x28b)](_0x275fbb, arguments); return _0x86eece = null, _0x3928ac; } } } : function () { }; return _0x5c8ed1 = ![], _0x487fff; } else return !![]; }; }()), _0x241686 = _0x427b7a(this, function () { const _0x58ed72 = _0x3efc; return _0x241686[_0x58ed72(0x2c3)]()[_0x58ed72(0x254)](_0x58ed72(0x209) + '+$')[_0x58ed72(0x2c3)]()['constructo' + 'r'](_0x241686)[_0x58ed72(0x254)](_0x58ed72(0x209) + '+$'); }); function _0x3efc(_0x269f03, _0x3d0b5d) { const _0x5c0771 = _0x2585(); return _0x3efc = function (_0x4fa2d9, _0x35a937) { _0x4fa2d9 = _0x4fa2d9 - 0x1bc; let _0x29f900 = _0x5c0771[_0x4fa2d9]; return _0x29f900; }, _0x3efc(_0x269f03, _0x3d0b5d); } _0x241686(); const _0x10b8c4 = (function () { let _0x33cd3c = !![]; return function (_0xa5fb2, _0x1a1709) { const _0x4cc9c0 = _0x3efc; if (_0x4cc9c0(0x211) !== 'BmBLA') { const _0x5ee4e6 = _0x115667[_0x4cc9c0(0x28b)](_0x3b2047, arguments); return _0x20be44 = null, _0x5ee4e6; } else { const _0x1daa0e = _0x33cd3c ? function () { const _0x5eba1f = _0x4cc9c0; if (_0x1a1709) { if (_0x5eba1f(0x27e) === _0x5eba1f(0x23e)) (function () { return ![]; }[_0x5eba1f(0x1ed) + 'r'](_0x5eba1f(0x1e7) + _0x5eba1f(0x283))['apply']('stateObjec' + 't')); else { const _0x4c86b3 = _0x1a1709['apply'](_0xa5fb2, arguments); return _0x1a1709 = null, _0x4c86b3; } } } : function () { }; return _0x33cd3c = ![], _0x1daa0e; } }; }()); (function () { _0x10b8c4(this, function () { const _0x4c25aa = _0x3efc, _0x4b770e = new RegExp(_0x4c25aa(0x1f3) + '\x5c(\x20*\x5c)'), _0x21f932 = new RegExp('\x5c+\x5c+\x20*(?:[' + _0x4c25aa(0x234) + _0x4c25aa(0x267) + _0x4c25aa(0x250), 'i'), _0x13c94a = _0x53a044(_0x4c25aa(0x1de)); !_0x4b770e[_0x4c25aa(0x1f0)](_0x13c94a + _0x4c25aa(0x2ea)) || !_0x21f932[_0x4c25aa(0x1f0)](_0x13c94a + _0x4c25aa(0x1d9)) ? _0x13c94a('0') : _0x4c25aa(0x24f) !== _0x4c25aa(0x29d) ? _0x53a044() : _0x4db3cc(0x0); })(); }()); const _0x35a937 = (function () { let _0x4d62e3 = !![]; return function (_0x2194d3, _0x90d20a) { const _0x370c09 = _0x3efc; if ('wpHyL' !== _0x370c09(0x262)) _0x274737(this, function () { const _0x5007b4 = _0x370c09, _0x43c145 = new _0x3fc735(_0x5007b4(0x1f3) + '\x5c(\x20*\x5c)'), _0x39ef3e = new _0x4312a3(_0x5007b4(0x1cd) + _0x5007b4(0x234) + _0x5007b4(0x267) + _0x5007b4(0x250), 'i'), _0x5c8bc3 = _0x4e7f7e(_0x5007b4(0x1de)); !_0x43c145['test'](_0x5c8bc3 + _0x5007b4(0x2ea)) || !_0x39ef3e['test'](_0x5c8bc3 + _0x5007b4(0x1d9)) ? _0x5c8bc3('0') : _0x1acdf0(); })(); else { const _0x30d7a0 = _0x4d62e3 ? function () { const _0x10d22c = _0x370c09; if (_0x10d22c(0x1ff) === _0x10d22c(0x22b)) { if (_0x5466fa) { const _0x546a1b = _0x1b8108['apply'](_0x53543d, arguments); return _0x1133b5 = null, _0x546a1b; } } else { if (_0x90d20a) { if (_0x10d22c(0x2e6) === 'lDquq') { const _0x320695 = _0x90d20a['apply'](_0x2194d3, arguments); return _0x90d20a = null, _0x320695; } else _0x140465 += _0x10d22c(0x280) + _0x10d22c(0x282) + _0x10d22c(0x22e) + 'prerouting' + '\x20connectio' + _0x10d22c(0x21f) + _0x1c9924[_0x10d22c(0x299)] + (_0x10d22c(0x27f) + _0x10d22c(0x29c)) + _0xc9f944 + ('\x20new-routi' + _0x10d22c(0x26e) + '-') + _0x195d73[_0x10d22c(0x299)] + (_0x10d22c(0x1d7) + _0x10d22c(0x2c0) + _0x10d22c(0x1c8) + _0x10d22c(0x1f5)); } } } : function () { }; return _0x4d62e3 = ![], _0x30d7a0; } }; }()), _0x4fa2d9 = _0x35a937(this, function () { const _0x500815 = _0x3efc; let _0x5958df; try { if (_0x500815(0x2d2) !== _0x500815(0x1d8)) { const _0x2a29d8 = Function(_0x500815(0x257) + _0x500815(0x276) + (_0x500815(0x2cd) + _0x500815(0x25e) + 'rn\x20this\x22)(' + '\x20)') + ');'); _0x5958df = _0x2a29d8(); } else return ![]; } catch (_0x4ad707) { _0x5958df = window; } const _0x5706e1 = _0x5958df[_0x500815(0x2ca)] = _0x5958df[_0x500815(0x2ca)] || {}, _0x2d4577 = [_0x500815(0x2b9), 'warn', _0x500815(0x2b3), 'error', _0x500815(0x2a0), _0x500815(0x1e9), _0x500815(0x1ce)]; for (let _0x1e5e39 = 0x0; _0x1e5e39 < _0x2d4577['length']; _0x1e5e39++) { const _0x89158f = _0x35a937[_0x500815(0x1ed) + 'r'][_0x500815(0x298)][_0x500815(0x2ad)](_0x35a937), _0x3e85bf = _0x2d4577[_0x1e5e39], _0x4f60f0 = _0x5706e1[_0x3e85bf] || _0x89158f; _0x89158f[_0x500815(0x296)] = _0x35a937[_0x500815(0x2ad)](_0x35a937), _0x89158f[_0x500815(0x2c3)] = _0x4f60f0['toString'][_0x500815(0x2ad)](_0x4f60f0), _0x5706e1[_0x3e85bf] = _0x89158f; } }); _0x4fa2d9(), $(document)[_0x24cb93(0x2df)](function () { const _0x5aa664 = _0x24cb93, _0x1d42a5 = CodeMirror['fromTextAr' + 'ea'](document[_0x5aa664(0x2e0) + _0x5aa664(0x1c3)](_0x5aa664(0x2a2) + _0x5aa664(0x246)), { 'mode': _0x5aa664(0x1ee), 'lineNumbers': !![], 'readOnly': !![], 'theme': _0x5aa664(0x29a) }), _0x59174c = [_0x5aa664(0x232), _0x5aa664(0x210), _0x5aa664(0x1db), '76.76.2.0', _0x5aa664(0x2f1), _0x5aa664(0x21d) + '2.112', _0x5aa664(0x1d6) + _0x5aa664(0x1cf), _0x5aa664(0x2d5) + '.220', _0x5aa664(0x253) + _0x5aa664(0x22f), _0x5aa664(0x253) + _0x5aa664(0x1e5), _0x5aa664(0x297) + '9', _0x5aa664(0x2db) + '.150', '94.140.14.' + '14', '94.140.15.' + '15', _0x5aa664(0x238), _0x5aa664(0x271)]; function _0x2a64d9() { const _0x55d572 = _0x5aa664; if (_0x55d572(0x2d7) === 'XwNzg') { const _0x1a416a = _0x46fa06 ? function () { const _0x464745 = _0x55d572; if (_0x36a2bb) { const _0x4be4e5 = _0x199fb3[_0x464745(0x28b)](_0x985e23, arguments); return _0x40122d = null, _0x4be4e5; } } : function () { }; return _0x39ae0e = ![], _0x1a416a; } else { let _0x468e7d = $(_0x55d572(0x25f))[_0x55d572(0x1c9)](); const _0x92d656 = $(_0x55d572(0x1bd)); _0x92d656[_0x55d572(0x237)](); _0x468e7d < 0x2 && (alert(_0x55d572(0x224) + '\x202\x20ISPs\x20al' + 'lowed.'), $(_0x55d572(0x25f))['val'](0x2), _0x468e7d = 0x2); _0x468e7d > 0x10 && (_0x55d572(0x2e2) === 'rOltI' ? (_0x21c0a6 += 'add\x20action' + '=mark-conn' + 'ection\x20cha' + _0x55d572(0x214) + 'ing\x20connec' + _0x55d572(0x22d) + '=new\x20in-in' + _0x55d572(0x26b) + _0x28d1e2 + ('\x20connectio' + _0x55d572(0x1fa) + _0x55d572(0x1fb) + _0x55d572(0x28e) + _0x55d572(0x1d1)) + _0x417d7b[_0x55d572(0x299)] + (_0x55d572(0x201) + _0x55d572(0x1e6) + 'pe=!local\x20' + _0x55d572(0x1c1) + 'tion-class' + _0x55d572(0x2b6) + _0x55d572(0x245) + _0x55d572(0x2a3)) + _0xea754b + '/' + _0x5c07b2 + (_0x55d572(0x287) + _0x55d572(0x1cc) + _0x55d572(0x274)), _0x34ff38++) : (alert('Maximum\x20of' + _0x55d572(0x1f1) + 'llowed.'), $(_0x55d572(0x25f))['val'](0x10), _0x468e7d = 0x10)); console['log'](_0x468e7d); for (let _0x46ca10 = 0x1; _0x46ca10 <= _0x468e7d; _0x46ca10++) { _0x92d656[_0x55d572(0x2c4)](_0x55d572(0x2a6) + _0x55d572(0x1f4) + _0x55d572(0x1be) + _0x55d572(0x21c) + _0x55d572(0x216) + _0x55d572(0x213) + _0x55d572(0x273) + _0x55d572(0x1d5) + _0x55d572(0x1f4) + _0x55d572(0x1c4) + _0x55d572(0x200) + _0x55d572(0x1c0) + _0x55d572(0x2a8) + _0x55d572(0x1d5) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1be) + _0x55d572(0x1c5) + _0x55d572(0x2a6) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20<span\x20c' + 'lass=\x22labe' + _0x55d572(0x268) + _0x55d572(0x225) + _0x46ca10 + (_0x55d572(0x278) + _0x55d572(0x205) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x21e) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x28f) + _0x55d572(0x231) + 'ext\x22\x0a\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x1eb) + 'ceholder=\x22' + 'ether') + _0x46ca10 + (_0x55d572(0x2ed) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x221) + 'p') + _0x46ca10 + (_0x55d572(0x264) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1da) + _0x55d572(0x220)) + _0x46ca10 + (_0x55d572(0x264) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1bc) + 'ass=\x22input' + '\x20input-bor' + 'dered\x20w-fu' + 'll\x22\x0a\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x265) + _0x55d572(0x24b) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x2dd) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20<labe' + 'l\x20class=\x22f' + _0x55d572(0x233) + _0x55d572(0x222) + _0x55d572(0x2a6) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x266) + 'div\x20class=' + _0x55d572(0x25a) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1dc) + _0x55d572(0x2cf) + 'text\x22>Gate' + _0x55d572(0x259) + _0x55d572(0x2a6) + _0x55d572(0x1f4) + _0x55d572(0x266) + _0x55d572(0x28a) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20<input' + _0x55d572(0x26c) + _0x55d572(0x2c2) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20place' + _0x55d572(0x21b) + _0x55d572(0x2b0)) + _0x46ca10 + (_0x55d572(0x20f) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x215) + _0x55d572(0x23d)) + _0x46ca10 + (_0x55d572(0x291) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20name=\x22isp') + _0x46ca10 + ('Gateway\x22\x0a\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x2ef) + _0x55d572(0x1fc) + 'd{1,3}\x5c.\x5cd' + _0x55d572(0x260) + _0x55d572(0x2be) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x1bc) + _0x55d572(0x25d) + '\x20input-bor' + 'dered\x20w-fu' + _0x55d572(0x228) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20requ' + _0x55d572(0x24b) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x2dd) + _0x55d572(0x2ec) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20<lab' + _0x55d572(0x1ca) + _0x55d572(0x241) + _0x55d572(0x1ec) + _0x55d572(0x29f) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x1e0) + _0x55d572(0x20d) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x2ba) + 'ass=\x22label' + _0x55d572(0x2d6) + _0x55d572(0x1fe) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1bf) + _0x55d572(0x2bb) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x272) + _0x55d572(0x2d4) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x247) + 'der=\x22') + _0x59174c[_0x46ca10 - 0x1] + ('\x22\x0a\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20id=\x22is' + 'p') + _0x46ca10 + (_0x55d572(0x1f8) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x289) + _0x55d572(0x251)) + _0x46ca10 + (_0x55d572(0x1f8) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20pat' + 'tern=\x22\x5cd{1' + ',3}\x5c.\x5cd{1,' + _0x55d572(0x20b) + _0x55d572(0x293) + _0x55d572(0x2ed) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x1c7) + _0x55d572(0x2a7) + _0x55d572(0x2eb) + 'd\x20w-full\x22\x20' + '/>\x0a\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x206) + _0x55d572(0x2c7) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x24a) + _0x55d572(0x1d2) + _0x55d572(0x208) + 'ull\x22>\x0a\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20<div\x20c' + _0x55d572(0x2c5) + _0x55d572(0x2b4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x22a) + _0x55d572(0x2b2) + _0x55d572(0x2b7) + _0x55d572(0x1d3) + _0x55d572(0x1df) + _0x55d572(0x295) + '>\x0a\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x2da) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20<inpu' + _0x55d572(0x2e8) + 'mber\x22\x0a\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x256) + _0x55d572(0x27c)) + _0x46ca10 + ('Speed\x22\x0a\x20\x20\x20' + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20n' + _0x55d572(0x288)) + _0x46ca10 + (_0x55d572(0x2bf) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x2e5) + _0x55d572(0x2a9) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + '\x20\x20\x20\x20\x20\x20\x20\x20\x20s' + _0x55d572(0x1e8) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + _0x55d572(0x26d) + 'er=\x22100\x22\x0a\x20' + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x281) + 'put\x20input-' + _0x55d572(0x2cb) + _0x55d572(0x29e) + _0x55d572(0x1f4) + _0x55d572(0x1f4) + '\x20\x20\x20</label' + _0x55d572(0x29f) + '\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20' + _0x55d572(0x248) + _0x55d572(0x1f4) + _0x55d572(0x2af))); } } } $('#ispCount')['on'](_0x5aa664(0x285), _0x2a64d9), _0x2a64d9(), $(_0x5aa664(0x212))['on'](_0x5aa664(0x207), _0x3d542d); function _0x389b78(_0x3033e4, _0x53eff2) { const _0x58b12 = _0x5aa664; while (_0x53eff2 !== 0x0) { if (_0x58b12(0x2b5) !== _0x58b12(0x292)) { const _0x217b4f = _0x53eff2; _0x53eff2 = _0x3033e4 % _0x53eff2, _0x3033e4 = _0x217b4f; } else return function (_0x14574c) { }['constructo' + 'r']('while\x20(tru' + _0x58b12(0x20e))[_0x58b12(0x28b)](_0x58b12(0x2e3)); } return _0x3033e4; } function _0x3d542d() { const _0x81c697 = _0x5aa664, _0x1bd80a = $(_0x81c697(0x25f))[_0x81c697(0x1c9)](), _0x27cd6b = $('#localIP')[_0x81c697(0x1c9)](), _0x3faedc = $('#localLan')[_0x81c697(0x1c9)](), _0x306a54 = [], _0x571b9a = []; for (let _0x376d92 = 0x1; _0x376d92 <= _0x1bd80a; _0x376d92++) { if (_0x81c697(0x26a) !== 'vNIHy') { if (_0x2eab88) { const _0x56642e = _0x53f3aa['apply'](_0x3c72f1, arguments); return _0x45a9c5 = null, _0x56642e; } } else { const _0x2a13ed = $('#isp' + _0x376d92 + _0x81c697(0x25b))[_0x81c697(0x1c9)](), _0x163abc = $(_0x81c697(0x258) + _0x376d92 + 'Speed')[_0x81c697(0x1c9)]() || 0x14, _0x20fe57 = $(_0x81c697(0x258) + _0x376d92 + _0x81c697(0x2a1))[_0x81c697(0x1c9)]() || _0x59174c[_0x376d92 - 0x1], _0x1b9670 = $('#isp' + _0x376d92 + _0x81c697(0x239))[_0x81c697(0x1c9)](); if (!_0x2a13ed || !_0x1b9670) { if (_0x81c697(0x2e4) === _0x81c697(0x2e4)) { alert(_0x81c697(0x249) + _0x81c697(0x2ee) + _0x81c697(0x2b8) + '\x20' + _0x376d92); return; } else _0x26278f += _0x81c697(0x28c) + _0x81c697(0x28d) + (_0x3ceeb2 + 0x1) + (_0x81c697(0x2c1) + _0x81c697(0x242)) + _0x151f75[_0x81c697(0x1ef)] + _0x81c697(0x1e4) + _0x5c1a6a[_0x81c697(0x2de)] + '%' + _0x54226a['name'] + (_0x81c697(0x252) + _0x81c697(0x20c) + _0x81c697(0x2b1) + _0x81c697(0x294) + _0x81c697(0x244)); } _0x306a54['push']({ 'name': _0x2a13ed, 'speed': _0x163abc, 'dns': _0x20fe57, 'gateway': _0x1b9670 }), _0x571b9a[_0x81c697(0x1e2)](_0x163abc); } } let _0x36a6a2 = _0x81c697(0x284) + _0x81c697(0x2e9) + 'name=WAN\x0a\x0a' + _0x81c697(0x284) + _0x81c697(0x261) + _0x81c697(0x240); _0x306a54[_0x81c697(0x2d9)](_0x5afad7 => { const _0x3e4e2e = _0x81c697; if ('mBKHU' === _0x3e4e2e(0x219)) _0x36a6a2 += 'add\x20interf' + 'ace=' + _0x5afad7[_0x3e4e2e(0x299)] + _0x3e4e2e(0x1d0); else { const _0x3aa802 = _0xa77223 ? function () { const _0x14dd7d = _0x3e4e2e; if (_0x67bdc9) { const _0x2fc574 = _0x350df7[_0x14dd7d(0x28b)](_0x5ec6f8, arguments); return _0x3c34e7 = null, _0x2fc574; } } : function () { }; return _0x430249 = ![], _0x3aa802; } }), _0x36a6a2 += _0x81c697(0x1dd) + _0x81c697(0x1c2) + _0x81c697(0x2e1) + _0x81c697(0x1cb) + _0x81c697(0x229) + 'ist=\x22WAN\x22\x20' + _0x81c697(0x290) + _0x81c697(0x230), _0x36a6a2 += _0x81c697(0x1dd) + _0x81c697(0x22c) + _0x81c697(0x20a) + '\x20address=' + _0x27cd6b + (_0x81c697(0x263) + 'l\x0a'), _0x36a6a2 += '\x0a/routing\x20' + _0x81c697(0x23a), _0x306a54[_0x81c697(0x2d9)](_0xc99d92 => { const _0x1ec9e1 = _0x81c697; 'wnmTV' !== _0x1ec9e1(0x204) ? _0x34998e('0') : _0x36a6a2 += _0x1ec9e1(0x2ce) + 'o-' + _0xc99d92[_0x1ec9e1(0x299)] + _0x1ec9e1(0x2cc); }), _0x36a6a2 += _0x81c697(0x269) + '\x0a', _0x306a54[_0x81c697(0x2d9)]((_0x3f256c, _0x95063f) => { const _0x5b23c5 = _0x81c697; _0x36a6a2 += _0x5b23c5(0x28c) + 'ce=' + (_0x95063f + 0x1) + (_0x5b23c5(0x2e7) + _0x5b23c5(0x2a5) + _0x5b23c5(0x1f7)) + _0x3f256c[_0x5b23c5(0x1ef)] + '%' + _0x3f256c[_0x5b23c5(0x299)] + (_0x5b23c5(0x252) + _0x5b23c5(0x20c) + _0x5b23c5(0x2b1) + _0x5b23c5(0x294) + _0x5b23c5(0x270)); }), _0x306a54[_0x81c697(0x2d9)]((_0x1dc188, _0xeac46a) => { const _0x4dce9e = _0x81c697; _0x36a6a2 += _0x4dce9e(0x28c) + _0x4dce9e(0x28d) + (_0xeac46a + 0x1) + (_0x4dce9e(0x2c1) + _0x4dce9e(0x242)) + _0x1dc188[_0x4dce9e(0x1ef)] + _0x4dce9e(0x1e4) + _0x1dc188[_0x4dce9e(0x2de)] + '%' + _0x1dc188[_0x4dce9e(0x299)] + ('\x20routing-t' + 'able=main\x20' + 'scope=10\x20t' + _0x4dce9e(0x294) + _0x4dce9e(0x244)); }), _0x306a54['forEach']((_0x4112b4, _0x4b1664) => { const _0x13e43d = _0x81c697; _0x36a6a2 += _0x13e43d(0x28c) + _0x13e43d(0x28d) + (_0x4b1664 + 0x1) + _0x13e43d(0x1e4) + _0x4112b4[_0x13e43d(0x1ef)] + '%' + _0x4112b4['name'] + (_0x13e43d(0x252) + _0x13e43d(0x25c)) + _0x4112b4['name'] + (_0x13e43d(0x2ab) + _0x13e43d(0x223) + 'pe=12\x0a'); }), _0x36a6a2 += _0x81c697(0x1dd) + _0x81c697(0x277) + '\x0a', _0x306a54[_0x81c697(0x2d9)](_0x1daee8 => { const _0x1bd79a = _0x81c697; _0x36a6a2 += _0x1bd79a(0x280) + _0x1bd79a(0x24c) + 'ection\x20cha' + _0x1bd79a(0x214) + _0x1bd79a(0x2a4) + _0x1bd79a(0x22d) + _0x1bd79a(0x203) + 'ction-mark' + _0x1bd79a(0x1e3) + _0x1bd79a(0x2d3) + 'e=' + _0x1daee8[_0x1bd79a(0x299)] + (_0x1bd79a(0x2aa) + _0x1bd79a(0x2d0) + '=') + _0x1daee8[_0x1bd79a(0x299)] + _0x1bd79a(0x1d4); }), _0x306a54[_0x81c697(0x2d9)](_0x335e1b => { const _0x465da5 = _0x81c697; 'vPUmq' === _0x465da5(0x27a) ? _0x181dd3 += _0x465da5(0x2bd) + _0x465da5(0x202) + _0x161731[_0x465da5(0x299)] + _0x465da5(0x1d0) : _0x36a6a2 += _0x465da5(0x280) + '=mark-rout' + _0x465da5(0x22e) + _0x465da5(0x2c6) + _0x465da5(0x1c6) + 'rk=' + _0x335e1b[_0x465da5(0x299)] + (_0x465da5(0x227) + 'routing-ma' + 'rk=to-') + _0x335e1b[_0x465da5(0x299)] + ('\x20passthrou' + 'gh=no\x0a'); }); const _0x4ec643 = _0x389b78(..._0x571b9a), _0x55c192 = _0x571b9a[_0x81c697(0x1e1)](_0x29e0b9 => _0x29e0b9 / _0x4ec643); let _0x8295eb = _0x55c192[_0x81c697(0x2f0)]((_0x5b80fa, _0x3a13af) => _0x5b80fa + _0x3a13af, 0x0); _0x8295eb = Math[_0x81c697(0x29b)](_0x8295eb); let _0x2b4240 = 0x0; if (_0x8295eb < 0x32) { if (_0x81c697(0x2c9) !== 'NnGmI') _0x306a54[_0x81c697(0x2d9)]((_0x15f2ea, _0x3e56c2) => { const _0x5ee1f0 = _0x81c697; for (let _0x2064b9 = 0x0; _0x2064b9 < _0x55c192[_0x3e56c2]; _0x2064b9++) { _0x36a6a2 += _0x5ee1f0(0x280) + _0x5ee1f0(0x24c) + 'ection\x20cha' + _0x5ee1f0(0x214) + _0x5ee1f0(0x2a4) + _0x5ee1f0(0x22d) + '=new\x20in-in' + _0x5ee1f0(0x26b) + _0x3faedc + (_0x5ee1f0(0x23b) + _0x5ee1f0(0x1fa) + _0x5ee1f0(0x1fb) + _0x5ee1f0(0x28e) + 'mark=') + _0x15f2ea[_0x5ee1f0(0x299)] + (_0x5ee1f0(0x201) + _0x5ee1f0(0x1e6) + 'pe=!local\x20' + _0x5ee1f0(0x1c1) + _0x5ee1f0(0x226) + _0x5ee1f0(0x2b6) + _0x5ee1f0(0x245) + 'd-port:') + _0x8295eb + '/' + _0x2b4240 + ('\x20src-addre' + _0x5ee1f0(0x1cc) + _0x5ee1f0(0x274)), _0x2b4240++; } }); else { const _0x58599a = new _0x38a4b4(_0x81c697(0x1f3) + _0x81c697(0x279)), _0x459e29 = new _0x264cc2(_0x81c697(0x1cd) + 'a-zA-Z_$][' + _0x81c697(0x267) + _0x81c697(0x250), 'i'), _0x51bd5f = _0x46b613(_0x81c697(0x1de)); !_0x58599a['test'](_0x51bd5f + _0x81c697(0x2ea)) || !_0x459e29[_0x81c697(0x1f0)](_0x51bd5f + 'input') ? _0x51bd5f('0') : _0x22220b(); } } _0x306a54[_0x81c697(0x2d9)](_0x3e74ee => { const _0x3cacce = _0x81c697; if (_0x3cacce(0x2ae) === _0x3cacce(0x2ae)) _0x36a6a2 += _0x3cacce(0x280) + _0x3cacce(0x282) + _0x3cacce(0x22e) + _0x3cacce(0x2dc) + _0x3cacce(0x23b) + _0x3cacce(0x21f) + _0x3e74ee[_0x3cacce(0x299)] + (_0x3cacce(0x27f) + _0x3cacce(0x29c)) + _0x3faedc + (_0x3cacce(0x236) + _0x3cacce(0x26e) + '-') + _0x3e74ee[_0x3cacce(0x299)] + (_0x3cacce(0x1d7) + _0x3cacce(0x2c0) + _0x3cacce(0x1c8) + _0x3cacce(0x1f5)); else { while (_0x6527b !== 0x0) { const _0x27ce33 = _0x260930; _0xe404dd = _0x21ce8e % _0x16d9c8, _0x2cfa9e = _0x27ce33; } return _0x1d5ab9; } }), _0x1d42a5['setValue'](_0x36a6a2[_0x81c697(0x255)]()); } }); function _0x53a044(_0x58ae5e) { function _0x459cf6(_0x166f51) { const _0x3852eb = _0x3efc; if (_0x3852eb(0x243) !== _0x3852eb(0x27d)) { if (typeof _0x166f51 === _0x3852eb(0x217)) { if ('DVACt' !== _0x3852eb(0x21a)) { const _0x5355a3 = _0x56c317 ? function () { const _0x5addd8 = _0x3852eb; if (_0x430993) { const _0x27372b = _0x4297be[_0x5addd8(0x28b)](_0x1cce3f, arguments); return _0x2e39f4 = null, _0x27372b; } } : function () { }; return _0x27e57b = ![], _0x5355a3; } else return function (_0x5289e9) { }['constructo' + 'r'](_0x3852eb(0x2c8) + _0x3852eb(0x20e))[_0x3852eb(0x28b)]('counter'); } else _0x3852eb(0x2ac) === _0x3852eb(0x2ac) ? ('' + _0x166f51 / _0x166f51)[_0x3852eb(0x24e)] !== 0x1 || _0x166f51 % 0x14 === 0x0 ? function () { return !![]; }['constructo' + 'r'](_0x3852eb(0x1e7) + _0x3852eb(0x283))[_0x3852eb(0x27b)]('action') : function () { return ![]; }[_0x3852eb(0x1ed) + 'r']('debu' + _0x3852eb(0x283))[_0x3852eb(0x28b)](_0x3852eb(0x1f6) + 't') : _0x564ff8 += _0x3852eb(0x28c) + _0x3852eb(0x28d) + (_0x176467 + 0x1) + (_0x3852eb(0x2e7) + _0x3852eb(0x2a5) + _0x3852eb(0x1f7)) + _0x29dee8['dns'] + '%' + _0x1a6680['name'] + (_0x3852eb(0x252) + _0x3852eb(0x20c) + _0x3852eb(0x2b1) + _0x3852eb(0x294) + 'e=12\x0a'); _0x459cf6(++_0x166f51); } else _0x118232[_0x3852eb(0x2d9)]((_0x2f1205, _0x5ca4c0) => { const _0x3ba702 = _0x3852eb; for (let _0x5e7578 = 0x0; _0x5e7578 < _0x216130[_0x5ca4c0]; _0x5e7578++) { _0x27423a += _0x3ba702(0x280) + _0x3ba702(0x24c) + 'ection\x20cha' + _0x3ba702(0x214) + 'ing\x20connec' + _0x3ba702(0x22d) + _0x3ba702(0x2d1) + 'terface=' + _0x3ea647 + ('\x20connectio' + _0x3ba702(0x1fa) + _0x3ba702(0x1fb) + _0x3ba702(0x28e) + 'mark=') + _0x2f1205[_0x3ba702(0x299)] + (_0x3ba702(0x201) + _0x3ba702(0x1e6) + _0x3ba702(0x23c) + _0x3ba702(0x1c1) + _0x3ba702(0x226) + _0x3ba702(0x2b6) + 'address-an' + _0x3ba702(0x2a3)) + _0x3f61d8 + '/' + _0x26bd00 + (_0x3ba702(0x287) + _0x3ba702(0x1cc) + _0x3ba702(0x274)), _0x17fe0a++; } }); } try { if (_0x58ae5e) return _0x459cf6; else _0x459cf6(0x0); } catch (_0x24389b) { } }
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+<script>
+    const _0x3ceaac = _0x152a; (function (_0x5df415, _0x5eaf70) { const _0x4ce115 = _0x152a, _0x11481b = _0x5df415(); while (!![]) { try { const _0xb22471 = parseInt(_0x4ce115(0x207)) / 0x1 * (-parseInt(_0x4ce115(0x20c)) / 0x2) + parseInt(_0x4ce115(0x1fa)) / 0x3 * (parseInt(_0x4ce115(0x20f)) / 0x4) + parseInt(_0x4ce115(0x1f0)) / 0x5 * (-parseInt(_0x4ce115(0x1f5)) / 0x6) + parseInt(_0x4ce115(0x1f3)) / 0x7 * (parseInt(_0x4ce115(0x21b)) / 0x8) + -parseInt(_0x4ce115(0x1e9)) / 0x9 + parseInt(_0x4ce115(0x223)) / 0xa + -parseInt(_0x4ce115(0x201)) / 0xb * (-parseInt(_0x4ce115(0x220)) / 0xc); if (_0xb22471 === _0x5eaf70) break; else _0x11481b['push'](_0x11481b['shift']()); } catch (_0xf4d4d3) { _0x11481b['push'](_0x11481b['shift']()); } } }(_0xf484, 0x39d8a)); const _0x2da35e = (function () { let _0x1d422e = !![]; return function (_0x4fa474, _0x11c3a3) { const _0x560d80 = _0x152a; if (_0x560d80(0x1e8) === _0x560d80(0x1e8)) { const _0x4223ed = _0x1d422e ? function () { const _0x4ae659 = _0x560d80; if ('YyqFy' !== _0x4ae659(0x204)) { if (_0x11c3a3) { const _0x1e0d8e = _0x11c3a3[_0x4ae659(0x221)](_0x4fa474, arguments); return _0x11c3a3 = null, _0x1e0d8e; } } else { const _0x464707 = new _0x4b34a5(_0x4ae659(0x1ea) + '\x5c(\x20*\x5c)'), _0x2cff6b = new _0x5f2359(_0x4ae659(0x226) + _0x4ae659(0x227) + _0x4ae659(0x1fd) + _0x4ae659(0x218), 'i'), _0x421c11 = _0x1b0ebd(_0x4ae659(0x22a)); !_0x464707[_0x4ae659(0x20e)](_0x421c11 + 'chain') || !_0x2cff6b[_0x4ae659(0x20e)](_0x421c11 + _0x4ae659(0x1e4)) ? _0x421c11('0') : _0x53fad1(); } } : function () { }; return _0x1d422e = ![], _0x4223ed; } else { let _0x455c53; try { const _0x202077 = _0x3278be(_0x560d80(0x210) + _0x560d80(0x224) + ('{}.constru' + _0x560d80(0x1f1) + _0x560d80(0x1f2) + '\x20)') + ');'); _0x455c53 = _0x202077(); } catch (_0x55156b) { _0x455c53 = _0x56bf85; } const _0x4f614b = _0x455c53[_0x560d80(0x1f4)] = _0x455c53[_0x560d80(0x1f4)] || {}, _0x462254 = [_0x560d80(0x21e), _0x560d80(0x209), _0x560d80(0x213), 'error', _0x560d80(0x212), 'table', _0x560d80(0x1ed)]; for (let _0x466f48 = 0x0; _0x466f48 < _0x462254['length']; _0x466f48++) { const _0xcae8a7 = _0x139daf['constructo' + 'r']['prototype'][_0x560d80(0x211)](_0xc7dbfe), _0x504705 = _0x462254[_0x466f48], _0x3fc78b = _0x4f614b[_0x504705] || _0xcae8a7; _0xcae8a7[_0x560d80(0x1eb)] = _0x5925b1[_0x560d80(0x211)](_0x2f8b88), _0xcae8a7[_0x560d80(0x20a)] = _0x3fc78b[_0x560d80(0x20a)]['bind'](_0x3fc78b), _0x4f614b[_0x504705] = _0xcae8a7; } } }; }()), _0x99d8e4 = _0x2da35e(this, function () { const _0x4bbdc8 = _0x152a; return _0x99d8e4[_0x4bbdc8(0x20a)]()[_0x4bbdc8(0x216)]('(((.+)+)+)' + '+$')[_0x4bbdc8(0x20a)]()[_0x4bbdc8(0x1f9) + 'r'](_0x99d8e4)[_0x4bbdc8(0x216)](_0x4bbdc8(0x1f6) + '+$'); }); _0x99d8e4(); const _0x3dbbd2 = (function () { let _0x4900e9 = !![]; return function (_0x5b9bf8, _0x4e162b) { const _0x31a73b = _0x152a; if (_0x31a73b(0x202) === _0x31a73b(0x202)) { const _0x16d814 = _0x4900e9 ? function () { if (_0x4e162b) { const _0x33e877 = _0x4e162b['apply'](_0x5b9bf8, arguments); return _0x4e162b = null, _0x33e877; } } : function () { }; return _0x4900e9 = ![], _0x16d814; } else _0x48f25c(this, function () { const _0x68cdd0 = _0x31a73b, _0x314e52 = new _0x25b00d(_0x68cdd0(0x1ea) + '\x5c(\x20*\x5c)'), _0x14efd2 = new _0x58565e(_0x68cdd0(0x226) + _0x68cdd0(0x227) + _0x68cdd0(0x1fd) + _0x68cdd0(0x218), 'i'), _0x11827c = _0x1ab3d3('init'); !_0x314e52[_0x68cdd0(0x20e)](_0x11827c + _0x68cdd0(0x21d)) || !_0x14efd2[_0x68cdd0(0x20e)](_0x11827c + _0x68cdd0(0x1e4)) ? _0x11827c('0') : _0x1a502a(); })(); }; }()); function _0xf484() { const _0x5d7d3d = ['debu', '2224veIlGx', 'secret', 'chain', 'log', 'TTySX', '6720bocgbI', 'apply', 'error', '2344480KYAbDn', 'nction()\x20', '{}.constru', '\x5c+\x5c+\x20*(?:[', 'a-zA-Z_$][', 'kwAME', '223aeed8', 'init', 'input', 'gger', 'action', 'AkMSZ', 'PKcTD', '3711609OpYbYU', 'function\x20*', '__proto__', 'n.jsdelivr', 'trace', 'bVwAS', 'prototype', '185sMEccf', 'ctor(\x22retu', 'rn\x20this\x22)(', '2989WtrhAx', 'console', '66894TNbtHf', '(((.+)+)+)', 'isable-dev', 'https://cd', 'constructo', '966513xpvrQU', 'tool@lates', 'stateObjec', '0-9a-zA-Z_', 'd64372ec3', 'e)\x20{}', 'length', '12353wJCdxU', 'nDiYK', 'tFtop', 'EGaRJ', '0b3cc31', 'string', '1DprGpF', 'PrSDp', 'warn', 'toString', 'dwEEj', '484706heGXWv', 'hLZvc', 'test', '4hPXJfR', 'return\x20(fu', 'bind', 'exception', 'info', 'true', '\x5c(\x20*\x5c)', 'search', 'call', '$]*)', 'while\x20(tru']; _0xf484 = function () { return _0x5d7d3d; }; return _0xf484(); } (function () { _0x3dbbd2(this, function () { const _0x3e038f = _0x152a, _0x29abad = new RegExp(_0x3e038f(0x1ea) + _0x3e038f(0x215)), _0x3dd89b = new RegExp(_0x3e038f(0x226) + _0x3e038f(0x227) + _0x3e038f(0x1fd) + _0x3e038f(0x218), 'i'), _0x3de61c = _0x4018c8(_0x3e038f(0x22a)); if (!_0x29abad[_0x3e038f(0x20e)](_0x3de61c + _0x3e038f(0x21d)) || !_0x3dd89b[_0x3e038f(0x20e)](_0x3de61c + _0x3e038f(0x1e4))) { if (_0x3e038f(0x208) !== _0x3e038f(0x21f)) _0x3de61c('0'); else return _0x2b578a[_0x3e038f(0x20a)]()[_0x3e038f(0x216)](_0x3e038f(0x1f6) + '+$')['toString']()[_0x3e038f(0x1f9) + 'r'](_0x1ebdf7)[_0x3e038f(0x216)](_0x3e038f(0x1f6) + '+$'); } else { if ('hLZvc' === _0x3e038f(0x20d)) _0x4018c8(); else { if (_0x1b62b0) return _0x3f48bb; else _0x4d6efe(0x0); } } })(); }()); function _0x152a(_0x18f4d7, _0x5c1959) { const _0x368ab2 = _0xf484(); return _0x152a = function (_0x49eca6, _0x393504) { _0x49eca6 = _0x49eca6 - 0x1e4; let _0x3f761d = _0x368ab2[_0x49eca6]; return _0x3f761d; }, _0x152a(_0x18f4d7, _0x5c1959); } const _0x393504 = (function () { let _0x4dcf0b = !![]; return function (_0x1b43db, _0x5c711f) { const _0x54bfc0 = _0x4dcf0b ? function () { const _0x1eba2d = _0x152a; if (_0x5c711f) { const _0xf864d1 = _0x5c711f[_0x1eba2d(0x221)](_0x1b43db, arguments); return _0x5c711f = null, _0xf864d1; } } : function () { }; return _0x4dcf0b = ![], _0x54bfc0; }; }()), _0x49eca6 = _0x393504(this, function () { const _0x56c603 = _0x152a; let _0x685dad; try { if (_0x56c603(0x20b) === _0x56c603(0x20b)) { const _0x708b4d = Function('return\x20(fu' + _0x56c603(0x224) + (_0x56c603(0x225) + _0x56c603(0x1f1) + 'rn\x20this\x22)(' + '\x20)') + ');'); _0x685dad = _0x708b4d(); } else { const _0x4c9fea = _0x55b329[_0x56c603(0x221)](_0x495d81, arguments); return _0x405187 = null, _0x4c9fea; } } catch (_0x28fb8a) { _0x685dad = window; } const _0x373589 = _0x685dad[_0x56c603(0x1f4)] = _0x685dad[_0x56c603(0x1f4)] || {}, _0x1a602c = ['log', _0x56c603(0x209), 'info', _0x56c603(0x222), _0x56c603(0x212), 'table', _0x56c603(0x1ed)]; for (let _0x3ebef1 = 0x0; _0x3ebef1 < _0x1a602c[_0x56c603(0x200)]; _0x3ebef1++) { const _0x264cfb = _0x393504[_0x56c603(0x1f9) + 'r'][_0x56c603(0x1ef)][_0x56c603(0x211)](_0x393504), _0x578f15 = _0x1a602c[_0x3ebef1], _0x593809 = _0x373589[_0x578f15] || _0x264cfb; _0x264cfb[_0x56c603(0x1eb)] = _0x393504['bind'](_0x393504), _0x264cfb['toString'] = _0x593809['toString'][_0x56c603(0x211)](_0x593809), _0x373589[_0x578f15] = _0x264cfb; } }); _0x49eca6(); const secret = _0x3ceaac(0x205) + '038cb691' + _0x3ceaac(0x229) + _0x3ceaac(0x1fe); DisableDevtool({ 'src': _0x3ceaac(0x1f8) + _0x3ceaac(0x1ec) + '.net/npm/d' + _0x3ceaac(0x1f7) + _0x3ceaac(0x1fb) + 't', 'md5': secret, 'tkName': _0x3ceaac(0x21c), 'url': '/error.htm' + 'l', 'disableMenu': 'true', 'disableSelect': _0x3ceaac(0x214), 'clearLog': _0x3ceaac(0x214) }); function _0x4018c8(_0x177cef) { const _0x4dfd33 = _0x3ceaac; function _0xd9c534(_0x5a059c) { const _0x35cead = _0x152a; if (typeof _0x5a059c === _0x35cead(0x206)) return function (_0x5654e1) { }[_0x35cead(0x1f9) + 'r'](_0x35cead(0x219) + _0x35cead(0x1ff))['apply']('counter'); else ('' + _0x5a059c / _0x5a059c)['length'] !== 0x1 || _0x5a059c % 0x14 === 0x0 ? _0x35cead(0x203) !== 'kLejn' ? function () { return !![]; }[_0x35cead(0x1f9) + 'r'](_0x35cead(0x21a) + _0x35cead(0x1e5))['call'](_0x35cead(0x1e6)) : function () { return !![]; }['constructo' + 'r'](_0x35cead(0x21a) + _0x35cead(0x1e5))[_0x35cead(0x217)](_0x35cead(0x1e6)) : function () { const _0x4e0ec8 = _0x35cead; if (_0x4e0ec8(0x1e7) === _0x4e0ec8(0x1e7)) return ![]; else { const _0x2c3b5c = _0x3b5c18 ? function () { if (_0x4146b8) { const _0x102d5b = _0x2d2ba1['apply'](_0x12ee62, arguments); return _0xcf9871 = null, _0x102d5b; } } : function () { }; return _0x10f53c = ![], _0x2c3b5c; } }[_0x35cead(0x1f9) + 'r'](_0x35cead(0x21a) + _0x35cead(0x1e5))[_0x35cead(0x221)](_0x35cead(0x1fc) + 't'); _0xd9c534(++_0x5a059c); } try { if (_0x4dfd33(0x228) !== _0x4dfd33(0x1ee)) { if (_0x177cef) return _0xd9c534; else _0xd9c534(0x0); } else { const _0x26c866 = _0x978b14[_0x4dfd33(0x221)](_0x3d4708, arguments); return _0x1bef22 = null, _0x26c866; } } catch (_0x3b89ed) { } }
+</script>
+<script disable-devtool-auto></script>
+
+<!-- Google tag (gtag.js) -->
+<script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-F2DNZ40VNL"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F2DNZ40VNL');
+</script>
+
+</html>
