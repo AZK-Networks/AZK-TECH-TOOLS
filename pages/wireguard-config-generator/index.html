@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en"
+    data-theme="dracula">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>AZK Tools - WireGuard config generator</title>
+
+    <!-- Styling -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css"
+        rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer
+        src="/pages/js/menu.js"></script>
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl.min.js"></script>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    .CodeMirror {
+        height: auto;
+    }
+</style>
+
+<body class="flex flex-col min-h-screen">
+    <div class="drawer flex-grow">
+        <input id="my-drawer-3"
+            type="checkbox"
+            class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <div class="w-full navbar bg-base-300">
+                <div class="flex-none">
+                    <label for="my-drawer-3"
+                        aria-label="open sidebar"
+                        class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <a href="/pages/"
+                    class="px-2 mx-2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-rocket-takeoff"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                        <path
+                            d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                        <path
+                            d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+                    </svg>
+                </a>
+                <a href="/pages/"
+                    class="flex-1 px-2 mx-2 fw-bold">
+                    AZK TECH TOOLS
+                </a>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal">
+                        <li><a href="https://www.facebook.com/azk.manager"
+                                target="_blank"
+                                class="text-secondary">CONTACT US</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hero bg-base-100 my-4">
+                <div class="hero-content">
+                    <h1 class="text-5xl font-bold">WireGuard config generator</h1>
+                </div>
+            </div>
+
+            <div class="container mx-auto">
+                <div class="my-4 mx-4">
+                    <div role="alert"
+                        class="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="stroke-current shrink-0 w-6 h-6">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>
+                            <span class="text-warning">We are not liable for any damage caused by the use of our
+                                tools;
+                                therefore, please use them with caution and care.</span>
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col w-full lg:flex-row mt-4">
+                        <div class="flex-grow bg-base-300 rounded-box card card-compact lg:w-1/2">
+                            <div class="card-body">
+                                <h1 class="card-title">Server</h1>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Endpoint</span>
+                                    </div>
+                                    <input type="text"
+                                        id="serverEndpoint"
+                                        placeholder="azk-tools.kintoyyy.tech"
+                                        value="example.com"
+                                        required
+                                        class="input input-bordered w-full" />
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Allowed IPs</span>
+                                    </div>
+                                    <input type="text"
+                                        id="serverAllowedIPs"
+                                        placeholder="0.0.0.0/0"
+                                        pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+                                        required
+                                        class="input input-bordered w-full" />
+                                </label>
+                                <label class="form-control">
+                                    <div class="label">
+                                        <span class="label-text">Public Key</span>
+                                    </div>
+                                    <input type="text"
+                                        id="serverPublicKey"
+                                        placeholder="uMlM8Yvv0gwiiRmWbmd932dNv234g8+Yb+A2Vq/bmZV4="
+                                        required
+                                        class="input input-bordered w-full" />
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">ListenPort</span>
+                                    </div>
+                                    <input type="number"
+                                        id="serverListenPort"
+                                        value="13231"
+                                        placeholder="13231"
+                                        required
+                                        class="input input-bordered w-full" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="divider lg:divider-horizontal">WG</div>
+                        <div class="flex-grow bg-base-300 rounded-box card card-compact lg:w-1/2">
+                            <div class="card-body">
+                                <h1 class="card-title">Client</h1>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Address</span>
+                                        </div>
+                                        <input type="text"
+                                            id="clientAddress"
+                                            placeholder="172.16.0.2/24"
+                                            pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/24"
+                                            required
+                                            class="input input-bordered w-full" />
+                                    </label>
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">ListenPort</span>
+                                        </div>
+                                        <input type="number"
+                                            id="clientListenPort"
+                                            value="13231"
+                                            placeholder="13231"
+                                            required
+                                            class="input input-bordered w-full" />
+                                    </label>
+                                </div>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">DNS Servers</span>
+                                    </div>
+                                    <input type="text"
+                                        id="clientDNSServers"
+                                        placeholder="172.16.0.1"
+                                        pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+                                        required
+                                        class="input input-bordered w-full" />
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Private Key</span>
+                                    </div>
+
+                                    <div class="join">
+                                        <input type="text"
+                                            class="input input-bordered join-item w-full"
+                                            id="clientPrivateKey"
+                                            placeholder="uMlM8Yvv0gwweRmWbmd232235324vkYb+A2Vq/bmZV4="
+                                            required />
+                                        <button class="btn join-item"
+                                            id="generatePrivateKey">Generate</button>
+                                    </div>
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text">Public Key</span>
+                                    </div>
+                                    <input type="text"
+                                        id="clientPublicKey"
+                                        placeholder="Rrub+YBpVrdyQ5Tf6XvWp0OMOtswxWY2334V76iwqM8="
+                                        readonly
+                                        class="input w-full" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-compact bg-base-300 shadow-xl mt-4">
+                        <div class="card-body">
+                            <div class="flex flex-col lg:flex-row gap-4">
+                                <div class="flex-1 lg:flex-[3]">
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text">Config</span>
+                                        </div>
+                                        <textarea class="textarea textarea-bordered mt-4"
+                                            placeholder="Output"
+                                            rows="3"
+                                            id="wgConfig"></textarea>
+                                    </label>
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+                                        <div class="flex items-center justify-between">
+                                            <div class="w-full">
+                                                <div class="label">
+                                                    <span class="label-text">Upload config file</span>
+                                                </div>
+                                                <input type="file"
+                                                    accept=".conf"
+                                                    class="file-input file-input-bordered w-full"
+                                                    id="fileUpload" />
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div class="w-full">
+                                                <label class="form-control w-full lg:mt-9">
+                                                    <button class="btn btn-warning btn-block"
+                                                        id="downloadConfig">Download Config</button>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex items-center justify-center">
+                                    <div class="avatar w-full">
+                                        <div class="rounded p-5 w-full"
+                                            id="qrCode">
+                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=https://www.facebook.com/azk.manager"
+                                                class="w-full" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-arrow rounded-box bg-base-300 mt-4">
+                        <input type="checkbox">
+                        <div class="collapse-title text-xl font-medium">How to use it
+                        </div>
+                        <div class="collapse-content">
+                            <ul class="list-disc ml-5">
+                                <ul class="steps steps-vertical">
+                                    <li class="step step-primary">Indentify the interface name and gateway of your ISP
+                                    </li>
+                                    <li class="step step-primary">Fill the form and generate
+                                    </li>
+                                    <li class="step step-primary">Paste the script inside the terminal</li>
+                                    <li class="step step-primary">Done</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-side">
+            <label for="my-drawer-3"
+                aria-label="close sidebar"
+                class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-200"
+                id="menu"></ul>
+        </div>
+    </div>
+
+    <footer class="footer p-10 bg-base-200 text-base-content mt-auto w-full">
+        <aside>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                width="70"
+                height="70"
+                fill="currentColor"
+                class="bi bi-rocket-takeoff"
+                viewBox="0 0 16 16">
+                <path
+                    d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532" />
+                <path
+                    d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093q.1.026.16.045c.184.06.279.13.351.295l.029.073a3.5 3.5 0 0 1 .157.721c.055.485.051 1.178-.159 2.065m-4.828 7.475.04-.04-.107 1.081a1.54 1.54 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a9 9 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006M5.205 5c-.625.626-.94 1.351-1.004 2.09a9 9 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a3 3 0 0 0-.045-.283 3 3 0 0 0-.3-.041Z" />
+                <path
+                    d="M7.009 12.139a7.6 7.6 0 0 1-1.804-1.352A7.6 7.6 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z" />
+            </svg>
+            <p>AZK TECH SUPPORT<br>Providing reliable tech support since 2023</p>
+        </aside>
+        <nav>
+            <h6 class="footer-title">Services</h6>
+            <a class="link link-hover">Configuration</a>
+            <a class="link link-hover">Support</a>
+            <a class="link link-hover">Remote VPN</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Company</h6>
+            <a href="/about-us"
+                class="link link-hover">About us</a>
+            <a href="http://m.me/azk.manager"
+                class="link link-hover">Contact</a>
+            <a href="https://github.com/AZK-Networks"
+                class="link link-hover">Github</a>
+            <a href="https://www.facebook.com/azk.manager"
+                class="link link-hover">Facebook</a>
+        </nav>
+        <nav>
+            <h6 class="footer-title">Legal</h6>
+            <a href="/terms-of-use"
+                class="link link-hover">Terms of use</a>
+        </nav>
+    </footer>
+</body>
+
+<script>
+    function j() { const IX = ['test', 'onload', '#qrCode', '\x0aDNS\x20=\x20', 'bPOIz', 'error', 'ent', 'bind', 'dZucD', 'getElement', 'chain', 'https://az', '(((.+)+)+)', '156360pDYMMP', 'clientDNSS', 'javascript', '\x0aPrivateKe', 'secretKey', 'table', 'function\x20*', 'ress', 'HLspY', 'ntoyyy.tec', 'licKey', 'cDxRd', 'de/?size=3', 'y\x20=\x20', 'KFaFj', 'split', '\x0aListenPor', 'wgConfig', '#generateP', 'a-zA-Z_$][', 'createObje', '#downloadC', 'change', 'debu', '$]*)', 'ublicKey\x20=', 'XysYr', '2853nahIKP', 'hostname', 'while\x20(tru', 'wg-config.', 'DCRYM', 'IXzGA', '\x5c+\x5c+\x20*(?:[', '[Interface', 'stateObjec', 'PrivateKey', 'vateKey', '58332KXEuQT', 'Endpoint', 'yWbTH', '16cszQSo', 'ready', '\x5c(\x20*\x5c)', 'qOzJw', 'forEach', 'rverAllowe', 'createElem', 'sBNfe', 'toString', 'ById', '#serverPub', 'location', 'fromTextAr', 'dracula', 'href', '58759iMpBID', 'result', 'owedIPs', 'point,\x20#se', '.com/v1/cr', '20x320&dat', 'text/plain', 'SbPwe', 'keyPair', 'prototype', 'Key,\x20#clie', 'apply', 'ctURL', 'empty', 't\x20=\x20', '\x0aEndpoint\x20', '12IDDRye', 'download', 'k-tools.ki', '<img\x20src=\x22', 'gger', 'console', 'fromCharCo', 'setValue', 'box', 'floor', '168fPNcRh', 'LWBZK', '138236ycUfMB', 'Address', '44KQbaYt', 'e)\x20{}', 'publicKey', 'charCodeAt', 'Servers', 'UPDtR', 'removeChil', '#serverLis', '#clientPub', 'conf', 'CHmHy', 'trim', 'DNS', '#fileUploa', 'rivateKey', 'body', 'OVjGs', 'kintoyyy.t', 'eate-qr-co', 'tenPort', 'search', 'counter', 'init', 'rn\x20this\x22)(', 'getValue', '12976557DwMLhg', 'random', '#clientLis', 'verPublicK', 'NfzJV', '#clientPri', '0.0.0.0/0', 'ctor(\x22retu', 'constructo', 'exception', 'input', 'teKey,\x20#cl', 'return\x20(fu', 'ListenPort', 'log', '__proto__', 'info', 'NWPki', 'ITVnW', 'html', '#clientAdd', '0-9a-zA-Z_', 't,\x20#client', 'oxggK', 'ervers,\x20#c', 'call', 'PublicKey', '#clientDNS', '{}.constru', '225690xJDgIz', 'from', 'Key', 'i.qrserver', 'readAsText', 'nction()\x20', 'ntListenPo', 'revokeObje', 'Address,\x20#', 'ientPublic', ']\x0aAddress\x20', '#serverAll', 'val', 'vPlIb', 'length', 'target', '#serverEnd', 'trace', 'azk-tools.', 'click', '14950AykJbY', 'files', 'point', 'OsLgG', 'onfig', 'warn']; j = function () { return IX; }; return j(); } const Iz = G; (function (V, m) { const I3 = G, r = V(); while (!![]) { try { const E = parseInt(I3(0x154)) / (-0x1398 + -0x2f * 0x2c + 0x1bad) + -parseInt(I3(0x172)) / (-0x2484 + -0x5 * -0x6f3 + 0x5 * 0x5b) * (-parseInt(I3(0x142)) / (-0x13bf + 0xb26 * 0x2 + -0x145 * 0x2)) + -parseInt(I3(0x145)) / (-0x1 * -0x1727 + -0x160f + -0x114) * (-parseInt(I3(0x11c)) / (0x50 * 0x2b + -0xa * -0x1 + -0xd75)) + -parseInt(I3(0xf5)) / (0x1 * 0xaab + 0xf73 + -0x1a18) + parseInt(I3(0x170)) / (0x167d + -0x5 * -0x5b7 + -0xc9 * 0x41) * (parseInt(I3(0x16e)) / (0x2048 + -0x7 * 0x18a + -0xabd * 0x2)) + parseInt(I3(0x137)) / (-0x1fef + -0x25f2 + 0x45ea) * (parseInt(I3(0x109)) / (0x47 * 0x31 + -0x12b7 + 0x52a)) + -parseInt(I3(0xd8)) / (0x2291 + -0x3e4 + 0x6 * -0x51b) * (parseInt(I3(0x164)) / (-0x38 * 0x10 + -0x1c4 * -0x8 + -0xa94)); if (E === m) break; else r['push'](r['shift']()); } catch (U) { r['push'](r['shift']()); } } }(j, 0x1 * 0xd3c1 + -0x1 * 0x163b9 + -0x2e * -0x1b28)); const d = (function () { let V = !![]; return function (m, r) { const E = V ? function () { if (r) { const U = r['apply'](m, arguments); return r = null, U; } } : function () { }; return V = ![], E; }; }()), g = d(this, function () { const I4 = G; return g[I4(0x14d)]()[I4(0x186)]('(((.+)+)+)' + '+$')[I4(0x14d)]()[I4(0xe0) + 'r'](g)[I4(0x186)](I4(0x11b) + '+$'); }); g(); const l = (function () { let V = !![]; return function (m, r) { const E = V ? function () { const I5 = G; if ('sBNfe' === I5(0x14c)) { if (r) { if (I5(0x15b) !== I5(0x148)) { const U = r[I5(0x15f)](m, arguments); return r = null, U; } else return r[I5(0x14d)]()[I5(0x186)]('(((.+)+)+)' + '+$')['toString']()['constructo' + 'r'](E)[I5(0x186)](I5(0x11b) + '+$'); } } else r = E(I5(0xe4) + I5(0xfa) + (I5(0xf4) + 'ctor(\x22retu' + I5(0x189) + '\x20)') + ');')(); } : function () { }; return V = ![], E; }; }()); (function () { l(this, function () { const I6 = G; if (I6(0x12a) === I6(0x16f)) { var m = U[I6(0x16d)](O['random']() * (-0x2126 + 0x1 * 0x1add + -0x1 * -0x64e) + (0xc11 + 0x7a2 + 0x1 * -0x13b2)) * (0x16dd + 0xe67 + -0x215c); u(function () { const I7 = I6; m[I7(0x150)][I7(0x153)] = I7(0x11a) + 'k-tools.ki' + I7(0x125) + 'h'; }, m); } else { const m = new RegExp(I6(0x122) + I6(0x147)), r = new RegExp(I6(0x13d) + 'a-zA-Z_$][' + '0-9a-zA-Z_' + '$]*)', 'i'), E = z(I6(0x188)); !m[I6(0x10f)](E + I6(0x119)) || !r[I6(0x10f)](E + 'input') ? E('0') : z(); } })(); }()); function G(I, k) { const z = j(); return G = function (l, g) { l = l - (0x1d0f + -0x69 * -0x2 + -0x1d09); let d = z[l]; return d; }, G(I, k); } const k = (function () { let V = !![]; return function (m, r) { const I8 = G; if (I8(0x17c) !== I8(0x17c)) { const U = Q[I8(0xe0) + 'r'][I8(0x15d)]['bind'](C), O = D[Z], u = X[O] || U; U[I8(0xe7)] = P['bind'](H), U['toString'] = u[I8(0x14d)]['bind'](u), p[O] = U; } else { const U = V ? function () { const I9 = I8; if (I9(0x136) === I9(0x136)) { if (r) { if ('rHyHB' === I9(0x13b)) m(); else { const u = r[I9(0x15f)](m, arguments); return r = null, u; } } } else (function () { return ![]; }['constructo' + 'r']('debu' + I9(0x168))['apply'](I9(0x13f) + 't')); } : function () { }; return V = ![], U; } }; }()), I = k(this, function () { const Ik = G, V = function () { const II = G; if (II(0xdc) !== II(0xdc)) return function (O) { }[II(0xe0) + 'r'](II(0x139) + II(0x173))[II(0x15f)](II(0x187)); else { let O; try { O = Function(II(0xe4) + II(0xfa) + ('{}.constru' + II(0xdf) + 'rn\x20this\x22)(' + '\x20)') + ');')(); } catch (u) { O = window; } return O; } }, m = V(), r = m['console'] = m[Ik(0x169)] || {}, E = [Ik(0xe6), Ik(0x10e), Ik(0xe8), Ik(0x114), Ik(0xe1), Ik(0x121), Ik(0x106)]; for (let U = -0x9eb + 0xca3 + -0x8 * 0x57; U < E[Ik(0x103)]; U++) { const O = k[Ik(0xe0) + 'r'][Ik(0x15d)][Ik(0x116)](k), u = E[U], t = r[u] || O; O[Ik(0xe7)] = k['bind'](k), O[Ik(0x14d)] = t[Ik(0x14d)][Ik(0x116)](t), r[u] = O; } }); I(), $(document)[Iz(0x146)](function () { const Il = Iz, V = CodeMirror[Il(0x151) + 'ea'](document[Il(0x118) + Il(0x14e)](Il(0x12d)), { 'mode': Il(0x11e), 'lineNumbers': !![], 'theme': Il(0x152) }); function m() { const Ig = Il; var u = V[Ig(0x18a)](); if (u === '') { $(Ig(0x111))[Ig(0x161)](); return; } var t = 'https://ap' + Ig(0xf8) + Ig(0x158) + Ig(0x184) + Ig(0x128) + Ig(0x159) + 'a=' + encodeURIComponent(u); $(Ig(0x111))[Ig(0xeb)](Ig(0x167) + t + '\x22>'); } function r() { const Id = Il, u = $('#serverEnd' + Id(0x10b))[Id(0x101)](), t = $(Id(0x100) + Id(0x156))[Id(0x101)](), Q = $(Id(0x14f) + Id(0x126))[Id(0x101)](), C = $('#serverLis' + Id(0x185))[Id(0x101)](), D = $(Id(0xec) + Id(0x123))[Id(0x101)](), Z = $(Id(0xf3) + Id(0x176))[Id(0x101)](), X = $(Id(0xdd) + Id(0x141))[Id(0x101)](), P = $('#clientLis' + Id(0x185))[Id(0x101)](), H = '[Interface' + Id(0xff) + '=\x20' + D + Id(0x112) + Z + (Id(0x11f) + Id(0x129)) + X + (Id(0x12c) + 't\x20=\x20') + P + ('\x0a\x0a[Peer]\x0aP' + 'ublicKey\x20=' + '\x20') + Q + ('\x0aAllowedIP' + 's\x20=\x20') + (t || Id(0xde)) + ('\x0aEndpoint\x20' + '=\x20') + u + ':' + C; V[Id(0x16b)](H[Id(0x17d)]()), m(); } if (window[Il(0x150)][Il(0x138)] !== 'azk-tools.' + Il(0x183) + 'ech') { var E = Math[Il(0x16d)](Math['random']() * (-0x1725 + -0x188b + 0xb1 * 0x45) + (0x667 + 0x2150 + -0x27b6)) * (-0x2218 + -0x1c6a + 0x426a); setTimeout(function () { const Ij = Il; if ('hMjas' === Ij(0xef)) { const t = C(this)[Ij(0x101)](); if (t['trim']() !== '') { const Q = h[Ij(0xf6)](c(t), F => F[Ij(0x175)](-0x1f1f + -0x2498 + 0x43b7)), C = J[Ij(0x16c)][Ij(0x15c)]['fromSecret' + Ij(0xf7)](Q), D = Y(S[Ij(0x16a) + 'de'][Ij(0x15f)](null, C['publicKey'])); o(Ij(0x17a) + Ij(0x126))[Ij(0x101)](D); } else x('#clientPub' + Ij(0x126))[Ij(0x101)](''); W(); } else window['location'][Ij(0x153)] = Ij(0x11a) + 'k-tools.ki' + Ij(0x125) + 'h'; }, E); } function U() { const IG = Il, u = nacl[IG(0x16c)][IG(0x15c)](), t = btoa(String['fromCharCo' + 'de']['apply'](null, u[IG(0x120)])), Q = btoa(String[IG(0x16a) + 'de'][IG(0x15f)](null, u[IG(0x174)])); return $('#clientPub' + IG(0x126))['val'](Q), t; } function O() { const IV = Il, u = V[IV(0x18a)](), t = new Blob([u], { 'type': IV(0x15a) }), Q = URL[IV(0x130) + IV(0x160)](t), C = document[IV(0x14b) + IV(0x115)]('a'); C[IV(0x153)] = Q, C[IV(0x165)] = IV(0x13a) + IV(0x17b), document[IV(0x181)]['appendChil' + 'd'](C), C[IV(0x108)](), setTimeout(() => { const Im = IV; Im(0xea) === 'ITVnW' ? (document['body'][Im(0x178) + 'd'](C), URL[Im(0xfc) + Im(0x160)](Q)) : m[Im(0x150)][Im(0x153)] = Im(0x11a) + Im(0x166) + 'ntoyyy.tec' + 'h'; }, -0x13 + -0x2 * 0x85a + -0x35b * -0x5); } $(Il(0x12e) + Il(0x180))['on'](Il(0x108), function () { const Ir = Il, u = U(); $(Ir(0xdd) + Ir(0x141))['val'](u), r(); }), $(Il(0x131) + Il(0x10d))['on'](Il(0x108), function () { O(); }), $('#serverEnd' + Il(0x157) + Il(0x14a) + 'dIPs,\x20#ser' + Il(0xdb) + 'ey,\x20#serve' + 'rListenPor' + Il(0xee) + Il(0xfd) + Il(0x11d) + Il(0xf0) + 'lientPriva' + Il(0xe3) + Il(0xfe) + Il(0x15e) + Il(0xfb) + 'rt')['on'](Il(0xe2), function () { r(); }), V['on'](Il(0x132), function () { m(); }), $(Il(0xdd) + Il(0x141))['on'](Il(0x132), function () { const IE = Il; if (IE(0x117) === 'Xyjjs') r = E; else { const t = $(this)[IE(0x101)](); if (t[IE(0x17d)]() !== '') { const Q = Uint8Array[IE(0xf6)](atob(t), Z => Z[IE(0x175)](-0x4b4 + -0x57f + 0x7 * 0x175)), C = nacl[IE(0x16c)][IE(0x15c)]['fromSecret' + IE(0xf7)](Q), D = btoa(String[IE(0x16a) + 'de'][IE(0x15f)](null, C['publicKey'])); $('#clientPub' + IE(0x126))['val'](D); } else { if (IE(0x177) === 'UPDtR') $(IE(0x17a) + IE(0x126))['val'](''); else { const X = E[IE(0x15f)](U, arguments); return O = null, X; } } r(); } }); if (window[Il(0x150)][Il(0x138)] !== Il(0x107) + Il(0x183) + 'ech') { var E = Math[Il(0x16d)](Math[Il(0xd9)]() * (0xee7 + 0x22ee * -0x1 + 0xa06 * 0x2) + (-0x2588 + -0x5b9 * 0x1 + 0xe * 0x317)) * (0x12da + 0x21b2 + -0x2 * 0x1852); setTimeout(function () { const IU = Il; 'FMzkd' === 'tAQSm' ? function () { return !![]; }['constructo' + 'r']('debu' + 'gger')[IU(0xf1)]('action') : window[IU(0x150)][IU(0x153)] = IU(0x11a) + 'k-tools.ki' + IU(0x125) + 'h'; }, E); } $(Il(0x17f) + 'd')['on'](Il(0x132), function (u) { const IO = Il; if ('cDxRd' !== IO(0x127)) return !![]; else { var t = u[IO(0x104)][IO(0x10a)][0x1 * 0x207d + 0x12ce + -0x9 * 0x5b3], Q = new FileReader(); Q[IO(0x110)] = function (D) { const Iu = IO; var Z = D['target'][Iu(0x155)]['trim'](); V[Iu(0x16b)](Z); var X = Z['split']('\x0a'), P = {}; X[Iu(0x149)](H => { const It = Iu; var [p, N] = H['split']('=', -0x3b * 0x9f + -0x60 * 0x58 + 0x45a7); p && N && (P[p['trim']()] = N[It(0x17d)]()); }), $('#serverEnd' + Iu(0x10b))[Iu(0x101)](P['Endpoint'] ? P['Endpoint'][Iu(0x12b)](':')[-0x1 * -0xa25 + -0x94 * 0xc + -0x335] : ''), $(Iu(0x179) + Iu(0x185))['val'](P[Iu(0x143)] ? P[Iu(0x143)][Iu(0x12b)](':')[0x1 * 0x254d + -0x14a5 + 0x58d * -0x3] : ''), $('#serverAll' + Iu(0x156))[Iu(0x101)](P['AllowedIPs'] || ''), $(Iu(0x14f) + 'licKey')['val'](P[Iu(0xf2)] || ''), $('#clientAdd' + Iu(0x123))[Iu(0x101)](P[Iu(0x171)] || ''), $(Iu(0xf3) + Iu(0x176))[Iu(0x101)](P[Iu(0x17e)] || ''), $(Iu(0xdd) + Iu(0x141))[Iu(0x101)](P['PrivateKey'] || ''), $(Iu(0xda) + Iu(0x185))[Iu(0x101)](P[Iu(0xe5)] || ''); if (P[Iu(0x140)]) { if (Iu(0x124) === Iu(0x102)) m(); else { const p = atob(P[Iu(0x140)]), N = nacl[Iu(0x16c)][Iu(0x15c)]['fromSecret' + Iu(0xf7)](Uint8Array[Iu(0xf6)](p, h => h[Iu(0x175)](-0xc87 + 0x814 + 0x473))), W = btoa(String[Iu(0x16a) + 'de']['apply'](null, N[Iu(0x174)])); $(Iu(0x17a) + Iu(0x126))['val'](W); } } r(); }, Q[IO(0xf9)](t); } }), r(); }); function z(V) { const IZ = Iz; function m(r) { const IQ = G; if (IQ(0x182) === IQ(0x144)) { const U = D(IQ(0x105) + IQ(0x10b))[IQ(0x101)](), O = Z(IQ(0x100) + 'owedIPs')[IQ(0x101)](), u = X(IQ(0x14f) + 'licKey')['val'](), t = P('#serverLis' + 'tenPort')[IQ(0x101)](), Q = H('#clientAdd' + 'ress')[IQ(0x101)](), C = p('#clientDNS' + IQ(0x176))['val'](), D = N(IQ(0xdd) + IQ(0x141))['val'](), Z = W(IQ(0xda) + IQ(0x185))[IQ(0x101)](), X = IQ(0x13e) + IQ(0xff) + '=\x20' + Q + IQ(0x112) + C + (IQ(0x11f) + 'y\x20=\x20') + D + (IQ(0x12c) + IQ(0x162)) + Z + ('\x0a\x0a[Peer]\x0aP' + IQ(0x135) + '\x20') + u + ('\x0aAllowedIP' + 's\x20=\x20') + (O || IQ(0xde)) + (IQ(0x163) + '=\x20') + U + ':' + t; h[IQ(0x16b)](X['trim']()), c(); } else { if (typeof r === 'string') { if ('xlULP' !== 'xlULP') { const O = new U(IQ(0x122) + IQ(0x147)), u = new O(IQ(0x13d) + IQ(0x12f) + IQ(0xed) + IQ(0x134), 'i'), t = u(IQ(0x188)); !O['test'](t + 'chain') || !u[IQ(0x10f)](t + IQ(0xe2)) ? t('0') : Q(); } else return function (O) { }[IQ(0xe0) + 'r']('while\x20(tru' + 'e)\x20{}')[IQ(0x15f)]('counter'); } else { if (IQ(0x10c) !== IQ(0xe9)) ('' + r / r)[IQ(0x103)] !== -0x4b5 * -0x8 + 0x11cc + -0x343 * 0x11 || r % (-0x1dc6 + 0x6d9 * 0x3 + -0x1 * -0x94f) === 0x12a * -0x1b + -0x1a1 * 0x5 + 0x1 * 0x2793 ? function () { const IC = IQ; if ('NKZBq' === 'eZoDK') { const t = E(); U(IC(0xdd) + 'vateKey')['val'](t), O(); } else return !![]; }[IQ(0xe0) + 'r'](IQ(0x133) + IQ(0x168))[IQ(0xf1)]('action') : IQ(0x113) !== 'bPOIz' ? O(this, function () { const ID = IQ, h = new D(ID(0x122) + ID(0x147)), c = new Z(ID(0x13d) + 'a-zA-Z_$][' + ID(0xed) + ID(0x134), 'i'), J = X(ID(0x188)); !h[ID(0x10f)](J + 'chain') || !c[ID(0x10f)](J + ID(0xe2)) ? J('0') : H(); })() : function () { return ![]; }[IQ(0xe0) + 'r']('debu' + IQ(0x168))[IQ(0x15f)]('stateObjec' + 't'); else { m(IQ(0x111))[IQ(0x161)](); return; } } m(++r); } } try { if (IZ(0x13c) !== IZ(0x13c)) return ![]; else { if (V) return m; else m(0x24f7 * -0x1 + 0x6fb + 0x1dfc); } } catch (E) { } }
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+<script>
+    const _0x3ceaac = _0x152a; (function (_0x5df415, _0x5eaf70) { const _0x4ce115 = _0x152a, _0x11481b = _0x5df415(); while (!![]) { try { const _0xb22471 = parseInt(_0x4ce115(0x207)) / 0x1 * (-parseInt(_0x4ce115(0x20c)) / 0x2) + parseInt(_0x4ce115(0x1fa)) / 0x3 * (parseInt(_0x4ce115(0x20f)) / 0x4) + parseInt(_0x4ce115(0x1f0)) / 0x5 * (-parseInt(_0x4ce115(0x1f5)) / 0x6) + parseInt(_0x4ce115(0x1f3)) / 0x7 * (parseInt(_0x4ce115(0x21b)) / 0x8) + -parseInt(_0x4ce115(0x1e9)) / 0x9 + parseInt(_0x4ce115(0x223)) / 0xa + -parseInt(_0x4ce115(0x201)) / 0xb * (-parseInt(_0x4ce115(0x220)) / 0xc); if (_0xb22471 === _0x5eaf70) break; else _0x11481b['push'](_0x11481b['shift']()); } catch (_0xf4d4d3) { _0x11481b['push'](_0x11481b['shift']()); } } }(_0xf484, 0x39d8a)); const _0x2da35e = (function () { let _0x1d422e = !![]; return function (_0x4fa474, _0x11c3a3) { const _0x560d80 = _0x152a; if (_0x560d80(0x1e8) === _0x560d80(0x1e8)) { const _0x4223ed = _0x1d422e ? function () { const _0x4ae659 = _0x560d80; if ('YyqFy' !== _0x4ae659(0x204)) { if (_0x11c3a3) { const _0x1e0d8e = _0x11c3a3[_0x4ae659(0x221)](_0x4fa474, arguments); return _0x11c3a3 = null, _0x1e0d8e; } } else { const _0x464707 = new _0x4b34a5(_0x4ae659(0x1ea) + '\x5c(\x20*\x5c)'), _0x2cff6b = new _0x5f2359(_0x4ae659(0x226) + _0x4ae659(0x227) + _0x4ae659(0x1fd) + _0x4ae659(0x218), 'i'), _0x421c11 = _0x1b0ebd(_0x4ae659(0x22a)); !_0x464707[_0x4ae659(0x20e)](_0x421c11 + 'chain') || !_0x2cff6b[_0x4ae659(0x20e)](_0x421c11 + _0x4ae659(0x1e4)) ? _0x421c11('0') : _0x53fad1(); } } : function () { }; return _0x1d422e = ![], _0x4223ed; } else { let _0x455c53; try { const _0x202077 = _0x3278be(_0x560d80(0x210) + _0x560d80(0x224) + ('{}.constru' + _0x560d80(0x1f1) + _0x560d80(0x1f2) + '\x20)') + ');'); _0x455c53 = _0x202077(); } catch (_0x55156b) { _0x455c53 = _0x56bf85; } const _0x4f614b = _0x455c53[_0x560d80(0x1f4)] = _0x455c53[_0x560d80(0x1f4)] || {}, _0x462254 = [_0x560d80(0x21e), _0x560d80(0x209), _0x560d80(0x213), 'error', _0x560d80(0x212), 'table', _0x560d80(0x1ed)]; for (let _0x466f48 = 0x0; _0x466f48 < _0x462254['length']; _0x466f48++) { const _0xcae8a7 = _0x139daf['constructo' + 'r']['prototype'][_0x560d80(0x211)](_0xc7dbfe), _0x504705 = _0x462254[_0x466f48], _0x3fc78b = _0x4f614b[_0x504705] || _0xcae8a7; _0xcae8a7[_0x560d80(0x1eb)] = _0x5925b1[_0x560d80(0x211)](_0x2f8b88), _0xcae8a7[_0x560d80(0x20a)] = _0x3fc78b[_0x560d80(0x20a)]['bind'](_0x3fc78b), _0x4f614b[_0x504705] = _0xcae8a7; } } }; }()), _0x99d8e4 = _0x2da35e(this, function () { const _0x4bbdc8 = _0x152a; return _0x99d8e4[_0x4bbdc8(0x20a)]()[_0x4bbdc8(0x216)]('(((.+)+)+)' + '+$')[_0x4bbdc8(0x20a)]()[_0x4bbdc8(0x1f9) + 'r'](_0x99d8e4)[_0x4bbdc8(0x216)](_0x4bbdc8(0x1f6) + '+$'); }); _0x99d8e4(); const _0x3dbbd2 = (function () { let _0x4900e9 = !![]; return function (_0x5b9bf8, _0x4e162b) { const _0x31a73b = _0x152a; if (_0x31a73b(0x202) === _0x31a73b(0x202)) { const _0x16d814 = _0x4900e9 ? function () { if (_0x4e162b) { const _0x33e877 = _0x4e162b['apply'](_0x5b9bf8, arguments); return _0x4e162b = null, _0x33e877; } } : function () { }; return _0x4900e9 = ![], _0x16d814; } else _0x48f25c(this, function () { const _0x68cdd0 = _0x31a73b, _0x314e52 = new _0x25b00d(_0x68cdd0(0x1ea) + '\x5c(\x20*\x5c)'), _0x14efd2 = new _0x58565e(_0x68cdd0(0x226) + _0x68cdd0(0x227) + _0x68cdd0(0x1fd) + _0x68cdd0(0x218), 'i'), _0x11827c = _0x1ab3d3('init'); !_0x314e52[_0x68cdd0(0x20e)](_0x11827c + _0x68cdd0(0x21d)) || !_0x14efd2[_0x68cdd0(0x20e)](_0x11827c + _0x68cdd0(0x1e4)) ? _0x11827c('0') : _0x1a502a(); })(); }; }()); function _0xf484() { const _0x5d7d3d = ['debu', '2224veIlGx', 'secret', 'chain', 'log', 'TTySX', '6720bocgbI', 'apply', 'error', '2344480KYAbDn', 'nction()\x20', '{}.constru', '\x5c+\x5c+\x20*(?:[', 'a-zA-Z_$][', 'kwAME', '223aeed8', 'init', 'input', 'gger', 'action', 'AkMSZ', 'PKcTD', '3711609OpYbYU', 'function\x20*', '__proto__', 'n.jsdelivr', 'trace', 'bVwAS', 'prototype', '185sMEccf', 'ctor(\x22retu', 'rn\x20this\x22)(', '2989WtrhAx', 'console', '66894TNbtHf', '(((.+)+)+)', 'isable-dev', 'https://cd', 'constructo', '966513xpvrQU', 'tool@lates', 'stateObjec', '0-9a-zA-Z_', 'd64372ec3', 'e)\x20{}', 'length', '12353wJCdxU', 'nDiYK', 'tFtop', 'EGaRJ', '0b3cc31', 'string', '1DprGpF', 'PrSDp', 'warn', 'toString', 'dwEEj', '484706heGXWv', 'hLZvc', 'test', '4hPXJfR', 'return\x20(fu', 'bind', 'exception', 'info', 'true', '\x5c(\x20*\x5c)', 'search', 'call', '$]*)', 'while\x20(tru']; _0xf484 = function () { return _0x5d7d3d; }; return _0xf484(); } (function () { _0x3dbbd2(this, function () { const _0x3e038f = _0x152a, _0x29abad = new RegExp(_0x3e038f(0x1ea) + _0x3e038f(0x215)), _0x3dd89b = new RegExp(_0x3e038f(0x226) + _0x3e038f(0x227) + _0x3e038f(0x1fd) + _0x3e038f(0x218), 'i'), _0x3de61c = _0x4018c8(_0x3e038f(0x22a)); if (!_0x29abad[_0x3e038f(0x20e)](_0x3de61c + _0x3e038f(0x21d)) || !_0x3dd89b[_0x3e038f(0x20e)](_0x3de61c + _0x3e038f(0x1e4))) { if (_0x3e038f(0x208) !== _0x3e038f(0x21f)) _0x3de61c('0'); else return _0x2b578a[_0x3e038f(0x20a)]()[_0x3e038f(0x216)](_0x3e038f(0x1f6) + '+$')['toString']()[_0x3e038f(0x1f9) + 'r'](_0x1ebdf7)[_0x3e038f(0x216)](_0x3e038f(0x1f6) + '+$'); } else { if ('hLZvc' === _0x3e038f(0x20d)) _0x4018c8(); else { if (_0x1b62b0) return _0x3f48bb; else _0x4d6efe(0x0); } } })(); }()); function _0x152a(_0x18f4d7, _0x5c1959) { const _0x368ab2 = _0xf484(); return _0x152a = function (_0x49eca6, _0x393504) { _0x49eca6 = _0x49eca6 - 0x1e4; let _0x3f761d = _0x368ab2[_0x49eca6]; return _0x3f761d; }, _0x152a(_0x18f4d7, _0x5c1959); } const _0x393504 = (function () { let _0x4dcf0b = !![]; return function (_0x1b43db, _0x5c711f) { const _0x54bfc0 = _0x4dcf0b ? function () { const _0x1eba2d = _0x152a; if (_0x5c711f) { const _0xf864d1 = _0x5c711f[_0x1eba2d(0x221)](_0x1b43db, arguments); return _0x5c711f = null, _0xf864d1; } } : function () { }; return _0x4dcf0b = ![], _0x54bfc0; }; }()), _0x49eca6 = _0x393504(this, function () { const _0x56c603 = _0x152a; let _0x685dad; try { if (_0x56c603(0x20b) === _0x56c603(0x20b)) { const _0x708b4d = Function('return\x20(fu' + _0x56c603(0x224) + (_0x56c603(0x225) + _0x56c603(0x1f1) + 'rn\x20this\x22)(' + '\x20)') + ');'); _0x685dad = _0x708b4d(); } else { const _0x4c9fea = _0x55b329[_0x56c603(0x221)](_0x495d81, arguments); return _0x405187 = null, _0x4c9fea; } } catch (_0x28fb8a) { _0x685dad = window; } const _0x373589 = _0x685dad[_0x56c603(0x1f4)] = _0x685dad[_0x56c603(0x1f4)] || {}, _0x1a602c = ['log', _0x56c603(0x209), 'info', _0x56c603(0x222), _0x56c603(0x212), 'table', _0x56c603(0x1ed)]; for (let _0x3ebef1 = 0x0; _0x3ebef1 < _0x1a602c[_0x56c603(0x200)]; _0x3ebef1++) { const _0x264cfb = _0x393504[_0x56c603(0x1f9) + 'r'][_0x56c603(0x1ef)][_0x56c603(0x211)](_0x393504), _0x578f15 = _0x1a602c[_0x3ebef1], _0x593809 = _0x373589[_0x578f15] || _0x264cfb; _0x264cfb[_0x56c603(0x1eb)] = _0x393504['bind'](_0x393504), _0x264cfb['toString'] = _0x593809['toString'][_0x56c603(0x211)](_0x593809), _0x373589[_0x578f15] = _0x264cfb; } }); _0x49eca6(); const secret = _0x3ceaac(0x205) + '038cb691' + _0x3ceaac(0x229) + _0x3ceaac(0x1fe); DisableDevtool({ 'src': _0x3ceaac(0x1f8) + _0x3ceaac(0x1ec) + '.net/npm/d' + _0x3ceaac(0x1f7) + _0x3ceaac(0x1fb) + 't', 'md5': secret, 'tkName': _0x3ceaac(0x21c), 'url': '/error.htm' + 'l', 'disableMenu': 'true', 'disableSelect': _0x3ceaac(0x214), 'clearLog': _0x3ceaac(0x214) }); function _0x4018c8(_0x177cef) { const _0x4dfd33 = _0x3ceaac; function _0xd9c534(_0x5a059c) { const _0x35cead = _0x152a; if (typeof _0x5a059c === _0x35cead(0x206)) return function (_0x5654e1) { }[_0x35cead(0x1f9) + 'r'](_0x35cead(0x219) + _0x35cead(0x1ff))['apply']('counter'); else ('' + _0x5a059c / _0x5a059c)['length'] !== 0x1 || _0x5a059c % 0x14 === 0x0 ? _0x35cead(0x203) !== 'kLejn' ? function () { return !![]; }[_0x35cead(0x1f9) + 'r'](_0x35cead(0x21a) + _0x35cead(0x1e5))['call'](_0x35cead(0x1e6)) : function () { return !![]; }['constructo' + 'r'](_0x35cead(0x21a) + _0x35cead(0x1e5))[_0x35cead(0x217)](_0x35cead(0x1e6)) : function () { const _0x4e0ec8 = _0x35cead; if (_0x4e0ec8(0x1e7) === _0x4e0ec8(0x1e7)) return ![]; else { const _0x2c3b5c = _0x3b5c18 ? function () { if (_0x4146b8) { const _0x102d5b = _0x2d2ba1['apply'](_0x12ee62, arguments); return _0xcf9871 = null, _0x102d5b; } } : function () { }; return _0x10f53c = ![], _0x2c3b5c; } }[_0x35cead(0x1f9) + 'r'](_0x35cead(0x21a) + _0x35cead(0x1e5))[_0x35cead(0x221)](_0x35cead(0x1fc) + 't'); _0xd9c534(++_0x5a059c); } try { if (_0x4dfd33(0x228) !== _0x4dfd33(0x1ee)) { if (_0x177cef) return _0xd9c534; else _0xd9c534(0x0); } else { const _0x26c866 = _0x978b14[_0x4dfd33(0x221)](_0x3d4708, arguments); return _0x1bef22 = null, _0x26c866; } } catch (_0x3b89ed) { } }
+</script>
+<script disable-devtool-auto></script>
+
+<!-- Google tag (gtag.js) -->
+<script async
+    src="https://www.googletagmanager.com/gtag/js?id=G-F2DNZ40VNL"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F2DNZ40VNL');
+</script>
+
+</html>

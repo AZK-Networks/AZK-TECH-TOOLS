@@ -34,6 +34,11 @@
         },
         {
             "type": "link",
+            "text": "WireGuard Config Generator",
+            "href": "/pages/wireguard-config-generator/"
+        },
+        {
+            "type": "link",
             "text": "What's my IP",
             "href": "/pages/whats-my-ip/"
         },
