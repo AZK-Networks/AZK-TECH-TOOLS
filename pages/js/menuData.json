@@ -34,6 +34,11 @@
         },
         {
             "type": "link",
+            "text": "What's my IP",
+            "href": "/pages/whats-my-ip/"
+        },
+        {
+            "type": "link",
             "text": "IPv4 Subnet Calculator",
             "href": "/pages/subnet-calculator/"
         }
